@@ -74,6 +74,60 @@ export default function Home() {
               </p>
             </div>
           </section>
+
+          {/* Skills Section */}
+          <section id="skills" className="space-y-6">
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+              Skills
+            </h2>
+            <div className="space-y-8">
+              <div>
+                <h3 className="mb-4 text-lg font-semibold text-foreground/90">
+                  Languages & Frameworks
+                </h3>
+                <div className="flex flex-wrap gap-3">
+                  {["Golang", "Bash", "Solidity", "Foundry", "Python"].map((skill) => (
+                    <span
+                      key={skill}
+                      className="rounded-lg border border-foreground/20 bg-foreground/5 px-4 py-2 text-base font-medium"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <h3 className="mb-4 text-lg font-semibold text-foreground/90">
+                  Infrastructure & Tools
+                </h3>
+                <div className="flex flex-wrap gap-3">
+                  {["Docker", "Linux", "Git", "ScyllaDB", "Prometheus", "Grafana", "OpenTelemetry"].map((skill) => (
+                    <span
+                      key={skill}
+                      className="rounded-lg border border-foreground/20 bg-foreground/5 px-4 py-2 text-base font-medium"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <h3 className="mb-4 text-lg font-semibold text-foreground/90">
+                  Blockchain & Web3
+                </h3>
+                <div className="flex flex-wrap gap-3">
+                  {["Ethereum", "EigenLayer", "Shared Security Models", "Keeper Networks"].map((skill) => (
+                    <span
+                      key={skill}
+                      className="rounded-lg border border-foreground/20 bg-foreground/5 px-4 py-2 text-base font-medium"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     </main>
