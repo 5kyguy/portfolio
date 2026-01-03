@@ -128,6 +128,70 @@ export default function Home() {
               </div>
             </div>
           </section>
+
+          {/* Featured Project Section */}
+          <section id="projects" className="space-y-6">
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+              Featured Project
+            </h2>
+            <div className="space-y-6 rounded-lg border border-foreground/10 bg-foreground/5 p-8">
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-2xl font-bold">TriggerX</h3>
+                  <p className="mt-2 text-lg text-foreground/70">
+                    Decentralized Keeper Network
+                  </p>
+                </div>
+                <p className="text-lg leading-8 text-foreground/80">
+                  TriggerX is a decentralized, multi-chain automation platform built on
+                  EigenLayer's Active Validator System (AVS). It provides secure,
+                  crypto-economically guaranteed automation for blockchain applications,
+                  enabling time-based, event-driven, and condition-based task execution
+                  across diverse networks.
+                </p>
+                <div className="space-y-2">
+                  <h4 className="font-semibold text-foreground/90">Key Features:</h4>
+                  <ul className="list-inside list-disc space-y-1 text-foreground/80">
+                    <li>Multi-chain automation with decentralized keeper networks</li>
+                    <li>Time-based, event-based, and condition-based triggers</li>
+                    <li>Crypto-economic security through EigenLayer AVS integration</li>
+                    <li>Interlinked jobs support for complex workflows</li>
+                  </ul>
+                </div>
+                <div className="space-y-2">
+                  <h4 className="font-semibold text-foreground/90">Tech Stack:</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {["Golang", "ScyllaDB", "Docker", "EigenLayer", "Ethereum"].map((tech) => (
+                      <span
+                        key={tech}
+                        className="rounded border border-foreground/20 bg-foreground/5 px-3 py-1 text-sm"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-4 pt-4">
+                  <a
+                    href="https://triggerx.gitbook.io/triggerx-docs"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center rounded-lg border border-foreground/20 bg-foreground/10 px-6 py-3 text-base font-medium transition-colors hover:bg-foreground/20 hover:border-foreground/30"
+                  >
+                    Documentation
+                  </a>
+                  <a
+                    href="https://github.com/trigg3rX/triggerx-backend"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center rounded-lg border border-foreground/20 bg-foreground/10 px-6 py-3 text-base font-medium transition-colors hover:bg-foreground/20 hover:border-foreground/30"
+                  >
+                    GitHub
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     </main>
