@@ -192,6 +192,57 @@ export default function Home() {
               </div>
             </div>
           </section>
+
+          {/* Contact Section */}
+          <section id="contact" className="space-y-6">
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+              Get in Touch
+            </h2>
+            <div className="space-y-4">
+              <p className="text-lg leading-8 text-foreground/80">
+                I'm always open to discussing new projects, opportunities, or just
+                connecting with fellow developers. Feel free to reach out!
+              </p>
+              <div className="flex flex-wrap gap-4 pt-4">
+                <a
+                  href="mailto:0x5kyguy@gmail.com"
+                  className="inline-flex items-center justify-center rounded-lg border border-foreground/20 bg-foreground/5 px-6 py-3 text-base font-medium transition-colors hover:bg-foreground/10 hover:border-foreground/30"
+                >
+                  Email
+                </a>
+                <a
+                  href="https://github.com/5kyguy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center rounded-lg border border-foreground/20 bg-foreground/5 px-6 py-3 text-base font-medium transition-colors hover:bg-foreground/10 hover:border-foreground/30"
+                >
+                  GitHub
+                </a>
+                <a
+                  href="https://x.com/0x5kyguy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center rounded-lg border border-foreground/20 bg-foreground/5 px-6 py-3 text-base font-medium transition-colors hover:bg-foreground/10 hover:border-foreground/30"
+                >
+                  X (Twitter)
+                </a>
+                <a
+                  href="https://t.me/ox5kyguy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center rounded-lg border border-foreground/20 bg-foreground/5 px-6 py-3 text-base font-medium transition-colors hover:bg-foreground/10 hover:border-foreground/30"
+                >
+                  Telegram
+                </a>
+                <span
+                  className="inline-flex items-center justify-center rounded-lg border border-foreground/20 bg-foreground/5 px-6 py-3 text-base font-medium"
+                  title="Discord handle: 0x5kyguy"
+                >
+                  Discord: 0x5kyguy
+                </span>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     </main>
