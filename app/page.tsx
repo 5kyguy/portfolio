@@ -1,72 +1,111 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteNav } from "@/components/SiteNav";
 
+export const metadata: Metadata = {
+  title: "Me",
+};
+
+const PORTRAIT =
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuBSDgpAnAB-LD1GWT_xZNRp4g2632hDdgLdVAYmKJEfCZhwBK7yIejq0uAJV0KepR3JzLnqMCWFWkXqlXSIXl4HwOGmETUk79dfsGa0wO2WriGso6f7m_NX_98U5DYAb1bfzWhYl21tE7hsKBOInoYnxYfSLz5Wih8f4SIwDCSqPE0OZ9Oq3PYH_JzZ2dgYf-srnAQeGlHr2CkvG9D_TfoB0l7cITjFC8SGT5ZM7qhCCSUAS4hPUxH9icpda9Ux9T0BfSwAIiGqod8";
+
 export default function HomePage() {
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-background font-body text-on-background selection:bg-primary selection:text-on-primary">
+    <div className="min-h-screen bg-background font-body text-on-background selection:bg-primary selection:text-on-primary">
       <SiteNav />
-      <main className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden px-6 pt-16">
-        <div className="pointer-events-none absolute inset-0 z-0 opacity-20">
-          <div className="absolute top-1/2 left-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-tr from-surface-container-high to-transparent blur-3xl" />
-        </div>
-        <div className="z-10 max-w-4xl space-y-12 text-center">
-          <div className="flex flex-col items-center space-y-8">
-            <div className="flex items-center justify-center text-primary opacity-40">
-              <div className="h-px w-12 bg-outline-variant" />
-              <span className="material-symbols-outlined mx-4 text-3xl">
-                explore
-              </span>
-              <div className="h-px w-12 bg-outline-variant" />
-            </div>
-            <h1 className="font-headline text-5xl leading-[1.1] tracking-tight text-on-surface md:text-7xl lg:text-8xl">
-              Greetings, Traveler. <br />
-              <span className="font-light italic">I am a</span>{" "}
-              <span className="text-secondary">Curator</span> <br />
-              <span className="font-light italic">based in</span>{" "}
-              <span className="text-on-surface-variant">Oxford</span>.
-            </h1>
-            <p className="font-body mx-auto max-w-xl text-lg leading-relaxed font-light tracking-wide text-on-surface-variant">
-              Documenting the intersection of timeless craftsmanship and digital
-              architecture through a lens of quiet minimalism.
-            </p>
-          </div>
-          <div className="flex items-center justify-center gap-6 pt-8">
-            <a
-              className="font-label rounded-lg bg-primary px-8 py-3 font-medium tracking-wide text-on-primary transition-all hover:shadow-lg active:scale-95"
-              href="#"
-            >
-              View Journal
-            </a>
-            <a
-              className="font-label rounded-lg border border-outline px-8 py-3 font-medium tracking-wide text-on-surface transition-all hover:bg-surface-container active:scale-95"
-              href="#"
-            >
-              Say Hello
-            </a>
-          </div>
-        </div>
-        <div className="absolute right-6 bottom-28 hidden h-72 w-56 rotate-3 rounded-xl border border-outline-variant/20 bg-surface-container-lowest/50 p-3 shadow-sm backdrop-blur-sm transition-transform duration-500 hover:rotate-0 sm:right-10 sm:bottom-32 lg:right-12 lg:bottom-36 lg:block lg:h-80 lg:w-64 lg:p-4">
-          <div className="relative flex h-full w-full flex-col justify-end overflow-hidden rounded-lg bg-surface-container-highest p-4">
+      <main className="flex min-h-[calc(100vh-1px)] w-full flex-col items-center justify-center overflow-hidden px-6 pb-12 pt-28 md:flex-row md:px-12 md:pt-24">
+        <div className="flex h-full w-full items-center justify-center p-8 md:w-1/2">
+          <div className="group relative aspect-[4/5] w-full max-w-lg overflow-hidden bg-surface-container-low">
             <Image
-              alt=""
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdtuX3T5ImMRtOyGNA4RjthljjmsydTs8VpDi8qWyZakyBW-BuIy0RwaXCxxs2V9d3_cROiv1w4N5yhUD1Ij94Lxfc1HV6QUbS0OH1jT5nu7GQl2E4IhwiELEDHrnZeoavVYGOu5uoAkitIu3KzHrF1ahJ7IWT9XSUdPUJjdZ3k0ctGqRsFX8eFEccLt4V8dFLovYqYeMlAq187G2RRfSHItrvY8ppy1fRjPJ_ix7t04KksvDM1HTDRQWXJjP3O4fMxvhX-zFWBI4"
+              alt="Portrait"
+              src={PORTRAIT}
               fill
-              className="object-cover opacity-60"
-              sizes="256px"
+              className="object-cover opacity-80 grayscale transition-opacity duration-700 group-hover:opacity-100"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              priority
             />
-            <div className="relative z-10">
-              <p className="font-headline text-sm italic text-on-surface">
-                &ldquo;Simplicity is the ultimate sophistication.&rdquo;
-              </p>
-              <p className="font-label mt-1 text-[10px] tracking-tighter uppercase opacity-60">
-                — L. Da Vinci
-              </p>
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60" />
+          </div>
+        </div>
+        <div className="flex h-full w-full flex-col justify-center space-y-12 md:w-1/2 md:pl-16">
+          <section className="max-w-xl space-y-6">
+            <span className="font-label text-xs uppercase tracking-[0.3em] text-outline">
+              Open Source &amp; Decentralization
+            </span>
+            <h1 className="font-headline text-6xl font-light leading-none tracking-tighter text-on-background md:text-8xl">
+              Code is <br />
+              <i className="font-headline">Speech.</i>
+            </h1>
+            <p className="font-body max-w-md text-lg font-light leading-relaxed text-on-surface-variant">
+              A FOSS developer and Web3 engineer dedicated to digital sovereignty.
+              Specializing in secure smart contract development and contributing
+              to core open-source infrastructure for a decentralized future.
+            </p>
+          </section>
+          <div className="flex flex-col space-y-8">
+            <div className="flex flex-col space-y-4">
+              <span className="font-label text-[10px] uppercase tracking-[0.2em] text-outline">
+                Peer-to-Peer Networks
+              </span>
+              <ul className="flex flex-col space-y-3 font-label text-sm">
+                <li>
+                  <a
+                    className="group flex items-center space-x-4 text-primary transition-colors duration-300"
+                    href="#"
+                  >
+                    <span className="material-symbols-outlined text-sm">
+                      terminal
+                    </span>
+                    <span className="border-b border-primary">
+                      GitHub / @foster-foss
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="group flex items-center space-x-4 text-on-surface-variant transition-colors duration-300 hover:text-primary"
+                    href="#"
+                  >
+                    <span className="material-symbols-outlined text-sm">
+                      alternate_email
+                    </span>
+                    <span className="border-b border-outline-variant/30 transition-colors group-hover:border-primary">
+                      Twitter / @sovereign_dev
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="group flex items-center space-x-4 text-on-surface-variant transition-colors duration-300 hover:text-primary"
+                    href="#"
+                  >
+                    <span className="material-symbols-outlined text-sm">hub</span>
+                    <span className="border-b border-outline-variant/30 transition-colors group-hover:border-primary">
+                      Farcaster &amp; Lens / @protocol_zero
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="grid max-w-sm grid-cols-2 gap-8 border-t border-outline-variant/10 pt-8">
+            <div>
+              <div className="font-headline text-2xl italic">2.4k+</div>
+              <div className="font-label text-[9px] uppercase tracking-widest text-outline">
+                Open Source Contributions
+              </div>
+            </div>
+            <div>
+              <div className="font-headline text-2xl italic">42</div>
+              <div className="font-label text-[9px] uppercase tracking-widest text-outline">
+                Smart Contracts Deployed
+              </div>
             </div>
           </div>
         </div>
       </main>
-      <SiteFooter className="fixed bottom-0 left-0 w-full" />
+      <SiteFooter />
     </div>
   );
 }

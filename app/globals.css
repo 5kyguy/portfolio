@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Default: themeA.html (light) */
+/* Default: light palette (compatible with themeB structure) */
 @theme {
   --color-surface-container: #ebeeef;
   --color-surface-tint: #5f5e5e;
@@ -59,7 +59,7 @@
   --font-label: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
 }
 
-/* themeB.html (dark) — toggled via html.dark */
+/* Dark palette — themeB tokens, toggled via html.dark */
 .dark {
   --color-background: #0e0e0e;
   --color-on-tertiary: #565c63;
@@ -186,4 +186,14 @@ button .material-symbols-outlined {
     var(--color-outline-variant) 85%,
     transparent
   );
+}
+
+.editorial-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.editorial-title {
+  letter-spacing: -0.02em;
 }

@@ -7,31 +7,31 @@ type FooterProps = {
 export function SiteFooter({ className = "" }: FooterProps) {
   return (
     <footer
-      className={`flex w-full flex-col items-center justify-between gap-4 border-t border-outline-variant/50 bg-transparent px-8 py-6 md:flex-row ${className}`}
+      className={`flex w-full flex-col items-center justify-center gap-6 border-t border-outline-variant/20 bg-surface-container-low px-8 py-20 font-label text-[10px] uppercase tracking-[0.2em] text-on-background dark:bg-background ${className}`}
     >
-      <div className="font-body text-xs tracking-widest text-on-surface-variant uppercase">
-        © Middle-earth Expeditions. All rights reserved.
-      </div>
-      <div className="flex items-center gap-8">
+      <div className="flex flex-wrap justify-center gap-x-12 gap-y-2">
         <Link
-          href="#"
-          className="font-body scale-95 text-xs tracking-widest text-on-surface-variant uppercase transition-colors duration-200 hover:text-primary"
+          href="https://github.com"
+          className="opacity-40 transition-opacity duration-500 hover:text-primary hover:opacity-100"
         >
-          The Citadel
+          GitHub
         </Link>
         <Link
           href="#"
-          className="font-body scale-95 text-xs tracking-widest text-on-background uppercase transition-colors duration-200 hover:text-primary"
+          className="opacity-40 transition-opacity duration-500 hover:text-primary hover:opacity-100"
         >
-          The Shire
+          Matrix
         </Link>
         <Link
           href="#"
-          className="font-body scale-95 text-xs tracking-widest text-on-surface-variant uppercase transition-colors duration-200 hover:text-primary"
+          className="opacity-40 transition-opacity duration-500 hover:text-primary hover:opacity-100"
         >
-          Outer Rim
+          Warpcast
         </Link>
       </div>
+      <p className="cursor-default select-none opacity-20 transition-opacity hover:opacity-60">
+        © 1138 The Archives. All rights reserved.
+      </p>
     </footer>
   );
 }

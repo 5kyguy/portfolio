@@ -1,7 +1,6 @@
 "use client";
 
-import { useCallback, useLayoutEffect, useState } from "react";
-import { ThemeGlyph } from "@/components/icons/ThemeGlyph";
+import { useCallback, useSyncExternalStore } from "react";
 
 const STORAGE_KEY = "portfolio-theme";
 
@@ -19,23 +18,32 @@ function applyThemeDom(theme: Theme) {
   }
 }
 
-export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>("dark");
+function subscribeTheme(callback: () => void) {
+  const el = document.documentElement;
+  const obs = new MutationObserver(callback);
+  obs.observe(el, { attributes: true, attributeFilter: ["class"] });
+  return () => obs.disconnect();
+}
 
-  useLayoutEffect(() => {
-    const t = document.documentElement.classList.contains("dark")
-      ? "dark"
-      : "light";
-    setTheme(t);
-  }, []);
+function getThemeSnapshot(): Theme {
+  return document.documentElement.classList.contains("dark") ? "dark" : "light";
+}
+
+function getServerThemeSnapshot(): Theme {
+  return "dark";
+}
+
+export function ThemeToggle() {
+  const theme = useSyncExternalStore(
+    subscribeTheme,
+    getThemeSnapshot,
+    getServerThemeSnapshot,
+  );
 
   const toggle = useCallback(() => {
-    setTheme((prev) => {
-      const next: Theme = prev === "dark" ? "light" : "dark";
-      applyThemeDom(next);
-      return next;
-    });
-  }, []);
+    const next: Theme = theme === "dark" ? "light" : "dark";
+    applyThemeDom(next);
+  }, [theme]);
 
   return (
     <button
@@ -44,13 +52,13 @@ export function ThemeToggle() {
       title={
         theme === "dark" ? "Switch to light theme" : "Switch to dark theme"
       }
-      className="inline-flex size-10 shrink-0 cursor-pointer items-center justify-center rounded-lg border border-outline-variant/40 bg-transparent p-0 text-primary transition-colors hover:bg-surface-container/60 hover:text-on-background focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none active:scale-95"
+      className="inline-flex cursor-pointer items-center justify-center text-primary transition-all duration-300 hover:text-on-background active:scale-95"
       aria-label={
         theme === "dark" ? "Switch to light theme" : "Switch to dark theme"
       }
       aria-pressed={theme === "dark"}
     >
-      <ThemeGlyph mode={theme} className="size-6 shrink-0" />
+      <span className="material-symbols-outlined text-[1.25rem]">contrast</span>
     </button>
   );
 }
