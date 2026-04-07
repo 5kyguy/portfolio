@@ -2,6 +2,8 @@ import { readFileSync } from "fs";
 import { join } from "path";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-static";
+
 export function GET() {
   const md = readFileSync(
     join(process.cwd(), "content", "skyguy.md"),

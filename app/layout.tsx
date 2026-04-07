@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Manrope, Newsreader } from "next/font/google";
-import { cookies } from "next/headers";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
 
@@ -25,19 +24,15 @@ export const metadata: Metadata = {
   description: "Aakash Yadav's (SkyGuy) portfolio",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieStore = await cookies();
-  const stored = cookieStore.get("portfolio-theme")?.value;
-  const themeClass = stored === "light" ? "light" : "dark";
-
   return (
     <html
       lang="en"
-      className={`${newsreader.variable} ${manrope.variable} ${themeClass}`}
+      className={`${newsreader.variable} ${manrope.variable} dark`}
       suppressHydrationWarning
     >
       <body className="min-h-screen">
