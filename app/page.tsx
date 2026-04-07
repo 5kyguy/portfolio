@@ -1,25 +1,34 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import type { StaticImageData } from "next/image";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteNav } from "@/components/SiteNav";
+import { getSiteData } from "@/lib/parser";
+import { RotatingHeadline } from "@/components/RotatingHeadline";
 
 export const metadata: Metadata = {
   title: "Me",
 };
 
-const PORTRAIT =
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuBSDgpAnAB-LD1GWT_xZNRp4g2632hDdgLdVAYmKJEfCZhwBK7yIejq0uAJV0KepR3JzLnqMCWFWkXqlXSIXl4HwOGmETUk79dfsGa0wO2WriGso6f7m_NX_98U5DYAb1bfzWhYl21tE7hsKBOInoYnxYfSLz5Wih8f4SIwDCSqPE0OZ9Oq3PYH_JzZ2dgYf-srnAQeGlHr2CkvG9D_TfoB0l7cITjFC8SGT5ZM7qhCCSUAS4hPUxH9icpda9Ux9T0BfSwAIiGqod8";
+import PORTRAIT from "../assets/portrait.png";
+
+const PROFILE_IMAGE_MAP: Record<string, StaticImageData> = {
+  "/assets/portrait.png": PORTRAIT,
+};
 
 export default function HomePage() {
+  const data = getSiteData();
+  const profileImage = data.profileImage ? PROFILE_IMAGE_MAP[data.profileImage] ?? PORTRAIT : PORTRAIT;
+
   return (
-    <div className="min-h-screen bg-background font-body text-on-background selection:bg-primary selection:text-on-primary">
+    <div className="flex h-dvh max-h-dvh flex-col overflow-hidden bg-background font-body text-on-background selection:bg-primary selection:text-on-primary">
       <SiteNav />
-      <main className="flex min-h-[calc(100vh-1px)] w-full flex-col items-center justify-center overflow-hidden px-6 pb-12 pt-28 md:flex-row md:px-12 md:pt-24">
-        <div className="flex h-full w-full items-center justify-center p-8 md:w-1/2">
-          <div className="group relative aspect-[4/5] w-full max-w-lg overflow-hidden bg-surface-container-low">
+      <main className="flex min-h-0 w-full flex-1 flex-col items-stretch justify-center overflow-hidden px-6 pb-4 pt-24 md:flex-row md:items-stretch md:px-12 md:pb-5 md:pt-20">
+        <div className="flex w-full flex-none max-h-[42dvh] min-h-0 items-center justify-center p-4 md:max-h-none md:flex-1 md:w-1/2 md:p-6">
+          <div className="group relative aspect-[4/5] h-auto max-h-full w-full max-w-lg overflow-hidden bg-surface-container-low">
             <Image
               alt="Portrait"
-              src={PORTRAIT}
+              src={profileImage}
               fill
               className="object-cover opacity-80 grayscale transition-opacity duration-700 group-hover:opacity-100"
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -28,84 +37,34 @@ export default function HomePage() {
             <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60" />
           </div>
         </div>
-        <div className="flex h-full w-full flex-col justify-center space-y-12 md:w-1/2 md:pl-16">
-          <section className="max-w-xl space-y-6">
-            <span className="font-label text-xs uppercase tracking-[0.3em] text-outline">
-              Open Source &amp; Decentralization
+        <div className="flex min-h-0 w-full flex-1 flex-col justify-center space-y-6 overflow-hidden md:w-1/2 md:space-y-8 md:pl-12 lg:pl-16">
+          <section className="max-w-xl">
+            <span className="mb-4 block font-label text-xs uppercase tracking-[0.3em] text-outline md:mb-5">
+              {data.tagline}
             </span>
-            <h1 className="font-headline text-6xl font-light leading-none tracking-tighter text-on-background md:text-8xl">
-              Code is <br />
-              <i className="font-headline">Speech.</i>
-            </h1>
-            <p className="font-body max-w-md text-lg font-light leading-relaxed text-on-surface-variant">
-              A FOSS developer and Web3 engineer dedicated to digital sovereignty.
-              Specializing in secure smart contract development and contributing
-              to core open-source infrastructure for a decentralized future.
+            <RotatingHeadline
+              className="font-headline text-5xl font-light leading-none tracking-tighter text-on-background sm:text-6xl md:text-7xl lg:text-8xl"
+              words={data.headlines}
+            />
+            <p className="mt-4 font-body max-w-md text-lg font-light leading-relaxed text-on-surface-variant md:mt-5">
+              {data.bio.split("\n")[0]}
             </p>
           </section>
-          <div className="flex flex-col space-y-8">
-            <div className="flex flex-col space-y-4">
-              <span className="font-label text-[10px] uppercase tracking-[0.2em] text-outline">
-                Peer-to-Peer Networks
-              </span>
-              <ul className="flex flex-col space-y-3 font-label text-sm">
-                <li>
-                  <a
-                    className="group flex items-center space-x-4 text-primary transition-colors duration-300"
-                    href="#"
-                  >
-                    <span className="material-symbols-outlined text-sm">
-                      terminal
-                    </span>
-                    <span className="border-b border-primary">
-                      GitHub / @foster-foss
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="group flex items-center space-x-4 text-on-surface-variant transition-colors duration-300 hover:text-primary"
-                    href="#"
-                  >
-                    <span className="material-symbols-outlined text-sm">
-                      alternate_email
-                    </span>
-                    <span className="border-b border-outline-variant/30 transition-colors group-hover:border-primary">
-                      Twitter / @sovereign_dev
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="group flex items-center space-x-4 text-on-surface-variant transition-colors duration-300 hover:text-primary"
-                    href="#"
-                  >
-                    <span className="material-symbols-outlined text-sm">hub</span>
-                    <span className="border-b border-outline-variant/30 transition-colors group-hover:border-primary">
-                      Farcaster &amp; Lens / @protocol_zero
-                    </span>
-                  </a>
-                </li>
-              </ul>
+          {data.stats.length > 0 && (
+            <div className="grid max-w-sm grid-cols-2 gap-6 border-t border-outline-variant/10 pt-4 md:gap-8 md:pt-6">
+              {data.stats.map((stat) => (
+                <div key={stat.label}>
+                  <div className="font-headline text-2xl italic">{stat.value}</div>
+                  <div className="font-label text-[9px] uppercase tracking-widest text-outline">
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
             </div>
-          </div>
-          <div className="grid max-w-sm grid-cols-2 gap-8 border-t border-outline-variant/10 pt-8">
-            <div>
-              <div className="font-headline text-2xl italic">2.4k+</div>
-              <div className="font-label text-[9px] uppercase tracking-widest text-outline">
-                Open Source Contributions
-              </div>
-            </div>
-            <div>
-              <div className="font-headline text-2xl italic">42</div>
-              <div className="font-label text-[9px] uppercase tracking-widest text-outline">
-                Smart Contracts Deployed
-              </div>
-            </div>
-          </div>
+          )}
         </div>
       </main>
-      <SiteFooter />
+      <SiteFooter className="shrink-0 !py-4 md:!py-6" />
     </div>
   );
 }

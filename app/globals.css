@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "Material Symbols Outlined";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/material-symbols-outlined.ttf") format("truetype");
+}
+
 @import "tailwindcss";
 
 /* Default: light palette (compatible with themeB structure) */

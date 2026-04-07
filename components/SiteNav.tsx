@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const links = [
-  { href: "/experiences", label: "Experiences" },
+  { href: "/journey", label: "My Journey" },
   { href: "/projects", label: "Projects" },
   { href: "/other-works", label: "Other Works" },
 ] as const;
@@ -19,7 +19,7 @@ export function SiteNav() {
         href="/"
         className="font-headline text-2xl font-light tracking-tight text-on-background italic"
       >
-        The Archives
+        SkyGuy
       </Link>
       <div className="hidden items-center space-x-10 font-headline font-light tracking-tight md:flex md:space-x-12">
         {links.map(({ href, label }) => {
