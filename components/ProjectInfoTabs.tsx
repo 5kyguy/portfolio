@@ -7,9 +7,11 @@ import { projectSecondaryLinks } from "@/lib/projectLinks";
 
 type ProjectInfoTabsProps = {
   project: ProjectItem;
+  /** Chip row aligns toward the image when text column is on the left of the image. */
+  align?: "start" | "end";
 };
 
-export function ProjectInfoTabs({ project }: ProjectInfoTabsProps) {
+export function ProjectInfoTabs({ project, align = "start" }: ProjectInfoTabsProps) {
   const bottomLinks = projectSecondaryLinks(project);
 
   const hasTimeline = project.timeline.length > 0;
@@ -21,9 +23,11 @@ export function ProjectInfoTabs({ project }: ProjectInfoTabsProps) {
   const chipClass =
     "border border-outline-variant/30 px-3 py-1.5 font-label text-[10px] uppercase tracking-wider text-on-surface-variant transition-colors hover:border-primary/40 hover:text-on-background";
 
+  const rowJustify = align === "end" ? "md:justify-end" : "";
+
   return (
     <div className="mt-6">
-      <div className="flex flex-wrap gap-2">
+      <div className={`flex flex-wrap gap-2 ${rowJustify}`}>
         {bottomLinks.map((link) => (
           <a
             key={`${link.label}-${link.url}`}

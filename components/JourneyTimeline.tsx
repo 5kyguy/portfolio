@@ -135,7 +135,7 @@ export function JourneyTimeline({ journey, projects }: JourneyTimelineProps) {
             <article
               key={`${item.period}-${item.organization}`}
               data-journey-year={itemYear || undefined}
-              className="group grid grid-cols-1 gap-8 lg:grid-cols-10"
+              className="group grid grid-cols-1 items-center gap-8 lg:grid-cols-10"
             >
               <div
                 className={`${img ? "overflow-hidden" : ""} ${reverse ? "order-1 lg:order-2 lg:col-span-4" : "lg:col-span-4"}`}
@@ -159,9 +159,15 @@ export function JourneyTimeline({ journey, projects }: JourneyTimelineProps) {
                 )}
               </div>
               <div
-                className={`flex flex-col justify-center ${reverse ? "order-2 lg:order-1 lg:col-span-6" : "lg:col-span-6"}`}
+                className={`flex w-full flex-col justify-center lg:max-w-xl ${
+                  reverse ? "order-2 lg:order-1 lg:col-span-6 lg:ml-auto lg:text-right" : "lg:col-span-6 lg:mr-auto lg:text-left"
+                }`}
               >
-                <div className="mb-2 flex items-baseline space-x-4">
+                <div
+                  className={`mb-2 flex flex-wrap items-baseline gap-x-4 gap-y-1 ${
+                    reverse ? "lg:justify-end" : ""
+                  }`}
+                >
                   <span className="font-label text-xs uppercase tracking-widest text-primary">{item.role}</span>
                   {item.location && (
                     <span className="font-label text-[10px] uppercase tracking-wider text-on-surface-variant/50">
@@ -169,7 +175,7 @@ export function JourneyTimeline({ journey, projects }: JourneyTimelineProps) {
                     </span>
                   )}
                 </div>
-                <h3 className="font-headline mb-2 text-4xl">
+                <h3 className={`font-headline mb-2 text-4xl ${reverse ? "lg:text-right" : ""}`}>
                   {websiteUrl ? (
                     <Link
                       href={websiteUrl}
@@ -183,23 +189,27 @@ export function JourneyTimeline({ journey, projects }: JourneyTimelineProps) {
                     item.organization
                   )}
                 </h3>
-                <p className="font-label mb-6 text-xs text-on-surface-variant/60">{item.period}</p>
+                <p className={`font-label mb-6 text-xs text-on-surface-variant/60 ${reverse ? "lg:text-right" : ""}`}>
+                  {item.period}
+                </p>
                 {item.highlights.length > 0 && (
-                  <ul className="font-body mb-6 max-w-xl list-disc space-y-3 pl-5 text-sm leading-relaxed text-on-surface-variant">
+                  <div
+                    className={`font-body mb-6 space-y-3 text-sm leading-relaxed text-on-surface-variant ${
+                      reverse ? "lg:text-right" : ""
+                    }`}
+                  >
                     {item.highlights.map((h) => (
-                      <li key={h} className="list-item">
-                        <MarkdownContent content={h} />
-                      </li>
+                      <MarkdownContent key={h} content={h} />
                     ))}
-                  </ul>
+                  </div>
                 )}
                 {item.notes && (
                   <MarkdownContent
                     content={item.notes}
-                    className="font-body mb-6 max-w-xl text-sm italic leading-relaxed text-on-surface-variant/60"
+                    className={`font-body mb-6 text-sm italic leading-relaxed text-on-surface-variant/60 ${reverse ? "lg:text-right" : ""}`}
                   />
                 )}
-                <div className="flex flex-wrap gap-4">
+                <div className={`flex flex-wrap gap-4 ${reverse ? "lg:justify-end" : ""}`}>
                   {item.stack.map((tag) => (
                     <span
                       key={tag}
@@ -210,11 +220,15 @@ export function JourneyTimeline({ journey, projects }: JourneyTimelineProps) {
                   ))}
                 </div>
                 {item.projects.length > 0 && (
-                  <div className="mt-6">
-                    <span className="mb-2 block font-label text-[10px] uppercase tracking-widest text-outline">
+                  <div className={`mt-6 ${reverse ? "lg:text-right" : ""}`}>
+                    <span
+                      className={`mb-2 block font-label text-[10px] uppercase tracking-widest text-outline ${
+                        reverse ? "lg:inline-block" : ""
+                      }`}
+                    >
                       Projects
                     </span>
-                    <div className="flex flex-wrap gap-2">
+                    <div className={`flex flex-wrap gap-2 ${reverse ? "lg:justify-end" : ""}`}>
                       {item.projects.map((name) => (
                         <Link
                           key={name}
@@ -228,7 +242,7 @@ export function JourneyTimeline({ journey, projects }: JourneyTimelineProps) {
                   </div>
                 )}
                 {extraLinks.length > 0 && (
-                  <div className="mt-4 flex flex-wrap gap-4">
+                  <div className={`mt-4 flex flex-wrap gap-4 ${reverse ? "lg:justify-end" : ""}`}>
                     {extraLinks.map((link) => (
                       <Link
                         key={`${link.label}-${link.url}`}

@@ -66,7 +66,7 @@ export default function ProjectsPage() {
               <div
                 key={project.name}
                 id={projectAnchorSlug(project.name)}
-                className={`group scroll-mt-28 grid grid-cols-1 gap-8 md:grid-cols-2 md:items-center ${
+                className={`group scroll-mt-28 grid grid-cols-1 gap-8 md:grid-cols-2 md:items-center md:gap-10 ${
                   isTextLeft ? "md:[&>*:first-child]:order-1 md:[&>*:last-child]:order-2" : "md:[&>*:first-child]:order-2 md:[&>*:last-child]:order-1"
                 }`}
               >
@@ -81,25 +81,35 @@ export default function ProjectsPage() {
                     />
                   )}
                 </div>
-                <div className="flex flex-col space-y-4">
-                  <span className="font-label text-[10px] uppercase tracking-[0.2em] text-outline">
+                <div
+                  className={`flex w-full flex-col space-y-4 md:max-w-md ${
+                    isTextLeft ? "md:mr-auto md:text-left" : "md:ml-auto md:text-right"
+                  }`}
+                >
+                  <span
+                    className={`font-label text-[10px] uppercase tracking-[0.2em] text-outline ${
+                      isTextLeft ? "" : "md:self-end"
+                    }`}
+                  >
                     {project.stack.slice(0, 3).join(" · ")}
                   </span>
-                  <ProjectTitleBlock project={project} level={2} />
+                  <ProjectTitleBlock
+                    project={project}
+                    level={2}
+                    align={isTextLeft ? "start" : "end"}
+                  />
                   <MarkdownContent
                     content={project.description}
-                    className="font-body max-w-md text-sm leading-relaxed text-on-surface-variant"
+                    className="font-body text-sm leading-relaxed text-on-surface-variant"
                   />
                   {project.highlights.length > 0 && (
-                    <ul className="font-body max-w-md list-disc space-y-3 pl-5 text-sm leading-relaxed text-on-surface-variant">
+                    <div className="font-body space-y-3 text-sm leading-relaxed text-on-surface-variant">
                       {project.highlights.map((h) => (
-                        <li key={h} className="list-item">
-                          <MarkdownContent content={h} />
-                        </li>
+                        <MarkdownContent key={h} content={h} />
                       ))}
-                    </ul>
+                    </div>
                   )}
-                  <ProjectInfoTabs project={project} />
+                  <ProjectInfoTabs project={project} align={isTextLeft ? "start" : "end"} />
                 </div>
               </div>
             );
@@ -132,13 +142,11 @@ export default function ProjectsPage() {
                     className="font-body mb-4 text-sm leading-relaxed text-on-surface-variant"
                   />
                   {project.highlights.length > 0 && (
-                    <ul className="font-body mb-6 list-disc space-y-3 pl-5 text-sm leading-relaxed text-on-surface-variant">
+                    <div className="font-body mb-6 space-y-3 text-sm leading-relaxed text-on-surface-variant">
                       {project.highlights.map((h) => (
-                        <li key={h} className="list-item">
-                          <MarkdownContent content={h} />
-                        </li>
+                        <MarkdownContent key={h} content={h} />
                       ))}
-                    </ul>
+                    </div>
                   )}
                   <ProjectInfoTabs project={project} />
                 </div>

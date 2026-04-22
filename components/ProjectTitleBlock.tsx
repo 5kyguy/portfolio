@@ -4,9 +4,11 @@ import { projectPrimaryExternalHref } from "@/lib/projectLinks";
 type ProjectTitleBlockProps = {
   project: ProjectItem;
   level: 2 | 3;
+  /** When set, title row aligns toward the adjacent image column (right when text sits left of the image). */
+  align?: "start" | "end";
 };
 
-export function ProjectTitleBlock({ project, level }: ProjectTitleBlockProps) {
+export function ProjectTitleBlock({ project, level, align = "start" }: ProjectTitleBlockProps) {
   const href = projectPrimaryExternalHref(project);
   const titleClass =
     level === 2
@@ -15,8 +17,10 @@ export function ProjectTitleBlock({ project, level }: ProjectTitleBlockProps) {
 
   const HeadingTag = level === 2 ? "h2" : "h3";
 
+  const rowAlign = align === "end" ? "md:justify-end" : "";
+
   return (
-    <HeadingTag className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+    <HeadingTag className={`flex flex-wrap items-baseline gap-x-4 gap-y-1 ${rowAlign}`}>
       {href ? (
         <a
           href={href}

@@ -91,7 +91,7 @@ export default function OtherWorksPage() {
               return (
                 <article
                   key={`${h.title}-${h.date}`}
-                  className="group grid grid-cols-1 gap-8 md:grid-cols-12 md:items-start"
+                  className="group grid grid-cols-1 gap-8 md:grid-cols-12 md:items-center"
                 >
                   <div className="md:col-span-5">
                     {img ? (
@@ -156,7 +156,7 @@ export default function OtherWorksPage() {
               return (
                 <article
                   key={`${c.title}-${c.date}`}
-                  className={`group grid grid-cols-1 gap-8 lg:items-start ${img ? "lg:grid-cols-12" : ""}`}
+                  className={`group grid grid-cols-1 gap-8 lg:items-center ${img ? "lg:grid-cols-12" : ""}`}
                 >
                   {img ? (
                     <div className="lg:col-span-4">
