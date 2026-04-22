@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default function JourneyPage() {
-  const { journey } = getSiteData();
+  const { journey, projects } = getSiteData();
 
   return (
     <div className="min-h-screen bg-background font-body text-on-background selection:bg-primary selection:text-on-primary">
@@ -25,7 +25,7 @@ export default function JourneyPage() {
           </h1>
         </header>
 
-        <JourneyTimeline journey={journey} />
+        <JourneyTimeline journey={journey} projects={projects} />
       </main>
       <SiteFooter />
     </div>

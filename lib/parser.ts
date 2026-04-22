@@ -16,6 +16,7 @@ export type JourneyItem = {
   image?: string;
   stack: string[];
   highlights: string[];
+  projects: string[];
   links: { label: string; url: string }[];
   notes?: string;
 };
@@ -23,31 +24,36 @@ export type JourneyItem = {
 export type ProjectItem = {
   name: string;
   description: string;
+  period: string;
+  highlights: string[];
+  links: { label: string; url: string }[];
   github?: string;
   githubLinks: string[];
   url?: string;
   image?: string;
   stack: string[];
   timeline: TimelineItem[];
+  screenshots: string[];
 };
 
 export type TimelineItem = {
   date: string;
   text: string;
-  links: { label: string; url: string }[];
 };
 
 export type HackathonItem = {
+  title: string;
   date: string;
-  event: string;
-  project: string;
-  projectLink?: string;
+  description: string;
+  image?: string;
   links: { label: string; url: string }[];
 };
 
 export type ConferenceItem = {
+  title: string;
   date: string;
-  event: string;
+  description: string;
+  image?: string;
   links: { label: string; url: string }[];
 };
 
@@ -103,10 +109,6 @@ function mdLinks(text: string): { label: string; url: string }[] {
   return out;
 }
 
-function stripMdLinks(text: string): string {
-  return text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1").trim();
-}
-
 /** First value matching `- **Key**: ...` */
 function meta(lines: string[], key: string): string | undefined {
   for (const l of lines) {
@@ -156,10 +158,6 @@ function splitH2(raw: string): Map<string, string> {
 /** Split on `### ` headings -> array of {heading, body} */
 function splitH3(raw: string): { heading: string; body: string }[] {
   return splitByHeading(raw, "###");
-}
-
-function splitH4(raw: string): { heading: string; body: string }[] {
-  return splitByHeading(raw, "####");
 }
 
 function splitByHeading(raw: string, mark: "###" | "####"): { heading: string; body: string }[] {
@@ -230,6 +228,12 @@ function parseJourney(body: string): JourneyItem[] {
 
     const stackRaw = meta(lines, "Stack");
     const linksRaw = meta(lines, "Links");
+    const projectNames = metaAll(lines, "Projects").flatMap((row) =>
+      row
+        .split("|")
+        .map((s) => s.trim())
+        .filter(Boolean),
+    );
 
     return {
       organization: orgPart.trim(),
@@ -242,6 +246,7 @@ function parseJourney(body: string): JourneyItem[] {
       image: meta(lines, "Image"),
       stack: stackRaw ? stackRaw.split(",").map((s) => s.trim()) : [],
       highlights: metaAll(lines, "Highlights"),
+      projects: projectNames,
       links: linksRaw ? mdLinks(linksRaw) : [],
       notes: freeText(lines) || undefined,
     };
@@ -250,17 +255,45 @@ function parseJourney(body: string): JourneyItem[] {
 
 function parseProjects(body: string): ProjectItem[] {
   return splitH3(body).map(({ heading, body: raw }) => {
-    const timelineStart = raw.indexOf("#### Timeline");
-    const summaryBlock = timelineStart >= 0 ? raw.slice(0, timelineStart).trim() : raw;
-    const timelineBlock = timelineStart >= 0 ? raw.slice(timelineStart).trim() : "";
+    const timelineIdx = raw.indexOf("#### Timeline");
+    const screenshotsIdx = raw.indexOf("#### Screenshots");
+
+    const summaryEnd = Math.min(
+      timelineIdx >= 0 ? timelineIdx : raw.length,
+      screenshotsIdx >= 0 ? screenshotsIdx : raw.length,
+    );
+    const summaryBlock = raw.slice(0, summaryEnd).trim();
+
+    const timelineBlock =
+      timelineIdx >= 0
+        ? raw.slice(
+            timelineIdx + "#### Timeline".length,
+            screenshotsIdx >= 0 && screenshotsIdx > timelineIdx ? screenshotsIdx : raw.length,
+          )
+        : "";
+
+    const screenshotsBlock =
+      screenshotsIdx >= 0
+        ? raw.slice(
+            screenshotsIdx + "#### Screenshots".length,
+            timelineIdx >= 0 && timelineIdx > screenshotsIdx ? timelineIdx : raw.length,
+          )
+        : "";
 
     const lines = summaryBlock.split("\n");
     const stackRaw = meta(lines, "Stack");
+    const linksRaw = meta(lines, "Links");
+    const parsedLinks = linksRaw ? mdLinks(linksRaw) : [];
     const githubRaw = meta(lines, "GitHub");
-    const githubLinks = (githubRaw ?? "")
+    const githubFromMeta = (githubRaw ?? "")
       .split("|")
       .map((s) => s.trim())
       .filter(Boolean);
+    const githubFromLinks = parsedLinks.filter((l) => /github/i.test(l.label)).map((l) => l.url);
+    const githubLinks = [...new Set([...githubFromMeta, ...githubFromLinks])];
+    const websiteFromLinks = parsedLinks.find((l) => /^website$/i.test(l.label.trim()));
+    const primaryUrl =
+      meta(lines, "URL")?.trim() || websiteFromLinks?.url || parsedLinks[0]?.url;
 
     const timeline: TimelineItem[] = timelineBlock
       .split("\n")
@@ -268,65 +301,71 @@ function parseProjects(body: string): ProjectItem[] {
       .map((line) => {
         const content = line.slice(2);
         const parts = content.split("|").map((p) => p.trim());
-        const links = mdLinks(content);
         return {
           date: parts[0] ?? "",
-          text: stripMdLinks(parts.slice(1).join(" | ")),
-          links,
+          text: parts.slice(1).join(" | ").trim(),
         };
+      });
+
+    const screenshots: string[] = screenshotsBlock
+      .split("\n")
+      .filter((line) => line.startsWith("- "))
+      .map((line) => {
+        const content = line.slice(2).trim();
+        const urlMatch = content.match(/\(([^)]+)\)/);
+        return urlMatch ? urlMatch[1] : content;
       });
 
     return {
       name: heading,
+      description: meta(lines, "Description") ?? freeText(lines) ?? "",
+      period: meta(lines, "Period") ?? "",
+      highlights: metaAll(lines, "Highlights"),
+      links: parsedLinks,
       github: githubLinks[0],
       githubLinks,
-      url: meta(lines, "URL"),
+      url: primaryUrl,
       image: meta(lines, "Image"),
       stack: stackRaw ? stackRaw.split(",").map((s) => s.trim()) : [],
-      description: freeText(lines),
       timeline,
+      screenshots,
     };
   });
 }
 
 function parseHackathons(body: string): HackathonItem[] {
-  return body
-    .split("\n")
-    .filter((l) => l.startsWith("- "))
-    .map((line) => {
-      const parts = line.slice(2).split("|").map((p) => p.trim());
-      const projectLinks = mdLinks(parts[2] ?? "");
-      const links = [...mdLinks(line)];
-      if (parts[3] && /^https?:\/\//.test(parts[3])) {
-        links.push({ label: "Reference", url: parts[3] });
-      }
-      return {
-        date: parts[0] ?? "",
-        event: parts[1] ?? "",
-        project: stripMdLinks(parts[2] ?? ""),
-        projectLink: projectLinks[0]?.url,
-        links,
-      };
-    });
+  return splitH3(body).map(({ heading, body: raw }) => {
+    const lines = raw.split("\n");
+    const paren = heading.match(/^(.+?)\s*\(([^)]+)\)\s*$/);
+    const title = paren ? paren[1].trim() : heading.trim();
+    const date = paren ? paren[2].trim() : "";
+    const linksRaw = meta(lines, "Links");
+    return {
+      title,
+      date,
+      description: meta(lines, "Description") ?? "",
+      image: meta(lines, "Image"),
+      links: linksRaw ? mdLinks(linksRaw) : [],
+    };
+  });
 }
 
 function parseConferences(body: string): ConferenceItem[] {
-  return body
-    .split("\n")
-    .filter((l) => l.startsWith("- "))
-    .map((line) => {
-      const parts = line.slice(2).split("|").map((p) => p.trim());
-      const links = mdLinks(line);
-      return {
-        date: parts[0] ?? "",
-        event: stripMdLinks(parts[1] ?? ""),
-        links,
-      };
-    });
+  return splitH3(body).map(({ heading, body: raw }) => {
+    const lines = raw.split("\n");
+    const linksRaw = meta(lines, "Links");
+    return {
+      title: heading.trim(),
+      date: meta(lines, "Date") ?? "",
+      description: meta(lines, "Description") ?? "",
+      image: meta(lines, "Image"),
+      links: linksRaw ? mdLinks(linksRaw) : [],
+    };
+  });
 }
 
 function parseTalks(body: string): TalkItem[] {
-  return splitH4(body).map(({ heading, body: raw }) => {
+  return splitH3(body).map(({ heading, body: raw }) => {
     const lines = raw.split("\n");
     const linksRaw = meta(lines, "Links");
     return {
@@ -380,10 +419,12 @@ function parse(): SiteData {
   const summaryMatch = raw.match(/^> (.+)$/m);
   const sections = splitH2(raw);
   const about = parseAbout(sections.get("About") ?? "");
-  const otherExperienceBody = sections.get("Other Experiences") ?? "";
-  const hackathonBody = subsection(otherExperienceBody, "Hackathons");
-  const conferenceBody = subsection(otherExperienceBody, "Conferences");
-  const talksBody = subsection(otherExperienceBody, "Talks & Contributions");
+  const hackathonBody = sections.get("Hackathons") ?? "";
+  const conferenceBody = sections.get("Conferences") ?? "";
+  const talksBody =
+    sections.get("Talks, Press & Community") ??
+    sections.get("Talks & Contributions") ??
+    subsection(sections.get("Other Experiences") ?? "", "Talks & Contributions");
 
   return {
     name: nameMatch?.[1].trim() ?? "",

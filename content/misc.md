@@ -1,0 +1,35 @@
+### Miscellaneous
+
+- I am a fan of "You could've invented that" style blogs, here is a list of some of my favorites:
+  - https://x.com/eigencloud/status/1717209660896514075, https://blog.eigencloud.xyz/ycie/
+- LamprosDao 2025 in Review: https://x.com/lamprosdao/status/2006306969943228643
+- My workstation at some point in time: https://x.com/triggerxnetwork/status/1935225188997619982
+
+- 12 Jun 2024 | First commit from our team to incredible-squarring AVS repository fork | [Commit](https://github.com/trigg3rX/keeper/commit/66254e7b2a4e033646ee88aac8581b259d452976)
+- 17 Jun 2024 | First time I went on camera to make submission for EigenLayer MicroHacks | [X Post](https://x.com/lamprosdao/status/1802764682102464662)
+- 22 Jun 2024 | Placed 5th in EigenLayer MicroHacks | [X Post](https://x.com/buildoneigen/status/1804495302746841160)
+- 28 Jun 2024 | I join, my first commit | [Commit](https://github.com/trigg3rX/keeper/commit/997ee44ba25470abed6194300d9710b547e3bca9)
+- 02 Aug 2024 | Keeper repo is wrapped up and we know the potential a decentralized keeper network has with EigenLayer as shared security layer for blockchain protocols
+- 16 Sep 2024 | Tron Hackatron S7 begins, Keeper Network is renamed to TriggerX, and we start building the protocol for Tron network | [TronDao Announcement](https://forum.trondao.org/t/triggerx-ticks-time-triggers-tasks-and-turbocharges-tron/27181)
+- 04 Nov 2024 | TriggerX places 2nd in Tron Hackatron S7 Community Voting (DeFi Track), we decide to carry on the development | [TronDao Announcement](https://forum.trondao.org/t/hackatron-s7-qualifiers-and-winners-list/29669)
+- 11 Nov 2024 | TriggerX is on X platform | [X Post](https://x.com/triggerxnetwork/status/1855816840280240583)
+- 12 Feb 2025 | We migrate to Othentic Stack | [X Post](https://x.com/triggerxnetwork/status/1889407462652125499)
+- 24 Mar 2025 | TriggerX goes live on Testnets | [X Post](https://x.com/triggerxnetwork/status/1904152272252326152)
+- 28 Mar 2025 | 100 followers on X | [X Post](https://x.com/triggerxnetwork/status/1905590790518366259)
+- 30 Mar 2025 | The Coordinated (associated with EigenCloud) covers our story in their newsletter | [X Post](https://x.com/satyaki44/status/1906214848863916501)
+- 23 Apr 2025 | First major update for our keeper nodes is shipped | [X Post](https://x.com/triggerxnetwork/status/1915027804275483054)
+- 30 Apr 2025 | 250 followers on X | [X Post](https://x.com/triggerxnetwork/status/1917536313064185929)
+- 30 Apr 2025 | 100 Telegram community members | [X Post](https://x.com/triggerxnetwork/status/1917544487053844821)
+- 06 May 2025 | TriggerX is in top 5 AVS by operator count on Testnet | [X Post](https://x.com/triggerxnetwork/status/1919707872964853934)
+- 05 Jun 2025 | 350 followers on X | [X Post](https://x.com/triggerxnetwork/status/1930583140537454680)
+- 07 Jun 2025 | TriggerX is selected as Imua's Ignite Partner | [X Post](https://x.com/triggerxnetwork/status/1931330906062520580) | [Imua's Post](https://x.com/imua/status/1931048003172769858)
+- 09 Jun 2025 | TriggerX Content Rewards Program | [X Post](https://x.com/triggerxnetwork/status/1932032187144327416)
+- Jun 2025 | Coverage on X by creators | [by @dhruv_DAO](https://x.com/dhruv_DAO/status/1954502370605306166) | [by @rscanv](https://x.com/rscanv/status/1945115195145142377) | [by @Bholy4christ](https://x.com/Bholy4christ/status/1942139889144741975) | [by @itsaxell_](https://x.com/itsaxell_/status/1940456015356744086) | [by @Victor_Kelechi_](https://x.com/Victor_Kelechi_/status/1939633824230777169) | [by @TechTalesHQ](https://x.com/TechTalesHQ/status/1938216374096052393)
+- 19 Aug 2025 | TriggerX Demo alongside Imua [X Post](https://x.com/imua/status/1957549172376367328) | [Broadcast](https://x.com/imua/status/1957851151564718590)
+- 20 Aug 2025 | TriggerX goes live on Arbitrum One [X Post](https://x.com/triggerxnetwork/status/1958124204982678002)
+- 10 Sep 2025 | TriggerX placed 3rd in Arbitrum OpenHouse Buildathon [X Post](https://x.com/arbitrum_india/status/1965799841038254341)
+- 19 Sep 2025 | TriggerX team at Arbitrum OpenHouse Bengaluru [X Post](https://x.com/triggerxnetwork/status/1968932012087197747)
+- 31 Oct 2025 | 750 followers on X [X Post](https://x.com/triggerxnetwork/status/1984205016731885821)
+- 29 Nov 2025 | DefiLlama adds TriggerX to their platform [X Post](https://x.com/DefiLlama/status/1994482504166773211)
+- Dec 2025 | TriggerX as the highest TVL protocol launched in 2025 | [by @NamiExchange](https://x.com/NamiExchange/status/1999510650901680467) | [by @CryptoDiffer](https://x.com/CryptoDiffer/status/2005515253787099597)
+- 30 Mar 2026 | After careful consideration, we decided to step back from active development of TriggerX, due to funding constraints and evolving market conditions, we were unable to continue progressing the project in the way we had envisioned

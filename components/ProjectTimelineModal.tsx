@@ -1,27 +1,31 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { MarkdownContent } from "@/components/MarkdownContent";
 import type { TimelineItem } from "@/lib/parser";
+
+const triggerChipClass =
+  "border border-outline-variant/30 px-3 py-1.5 font-label text-[10px] uppercase tracking-wider text-on-surface-variant transition-colors hover:border-primary/40 hover:text-on-background";
 
 type ProjectTimelineModalProps = {
   timeline: TimelineItem[];
   projectName: string;
+  buttonLabel?: string;
 };
 
-export function ProjectTimelineModal({ timeline, projectName }: ProjectTimelineModalProps) {
+export function ProjectTimelineModal({
+  timeline,
+  projectName,
+  buttonLabel = "View timeline",
+}: ProjectTimelineModalProps) {
   const [open, setOpen] = useState(false);
 
   if (timeline.length === 0) return null;
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className="font-label mt-3 text-xs uppercase tracking-[0.2em] text-primary underline underline-offset-4 transition-colors hover:text-on-background"
-      >
-        View timeline
+      <button type="button" onClick={() => setOpen(true)} className={triggerChipClass}>
+        {buttonLabel}
       </button>
 
       {open && (
@@ -49,24 +53,10 @@ export function ProjectTimelineModal({ timeline, projectName }: ProjectTimelineM
                   <p className="font-label text-[10px] uppercase tracking-[0.2em] text-primary">
                     {item.date}
                   </p>
-                  <p className="mt-1 text-sm leading-relaxed text-on-surface-variant">
-                    {item.text}
-                  </p>
-                  {item.links.length > 0 && (
-                    <div className="mt-2 flex flex-wrap gap-3">
-                      {item.links.map((link) => (
-                        <Link
-                          key={link.url}
-                          href={link.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="font-label text-xs text-primary underline underline-offset-4 transition-colors hover:text-on-background"
-                        >
-                          {link.label}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
+                  <MarkdownContent
+                    content={item.text}
+                    className="mt-1 text-sm leading-relaxed text-on-surface-variant"
+                  />
                 </article>
               ))}
             </div>

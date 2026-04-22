@@ -9,7 +9,7 @@ Profile picture: /assets/portrait.png
 - **Tagline**: Open Source, Decentralization and Web3
 - **Headline**: Code is Law.
 
-Backend and chain engineer working across Go, Solidity, and the messier parts of distributed systems — keepers, AVSs, and the orchestration glue that holds them together. Most of my time goes into TriggerX and adjacent FOSS work; the rest goes into talks, workshops, and meeting people who are also trying to make Web3 less of a buzzword and more of an infrastructure you can reason about. Daily driver: Arch Linux, btw.
+Backend and web3 engineer with deep roots in Go, Solidity, and the distributed systems that connect on-chain and off-chain worlds. I spent a significant part of my career building and maintaining TriggerX until its shutdown, and most of what I learned still guides my approach to decentralized infrastructure. These days, I work on new web3 projects, infuse AI into almost every project (experimenting with ideas both practical and experimental), and actively join talks and sessions to share knowledge and push the boundaries of what's possible with open tech. Always exploring, always learning. Daily driver: Arch Linux, btw.
 
 ## Journey
 

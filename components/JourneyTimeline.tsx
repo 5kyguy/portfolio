@@ -4,13 +4,19 @@ import { useEffect, useMemo, useState } from "react";
 import type { StaticImageData } from "next/image";
 import Image from "next/image";
 import Link from "next/link";
-import imgAether from "../assets/journey/aether.jpg";
-import imgLabs from "../assets/journey/labs.jpg";
-import type { JourneyItem } from "@/lib/parser";
+import imgLampros from "../assets/journey/lamprostech.png";
+import imgSvnit from "../assets/journey/svnit.png";
+import imgVl2g from "../assets/journey/vl2g.png";
+import imgWictronix from "../assets/journey/wictronix.png";
+import { MarkdownContent } from "@/components/MarkdownContent";
+import { journeyProjectHref } from "@/lib/projectAnchor";
+import type { JourneyItem, ProjectItem } from "@/lib/parser";
 
 const IMAGE_MAP: Record<string, StaticImageData> = {
-  "/assets/journey/aether.jpg": imgAether,
-  "/assets/journey/labs.jpg": imgLabs,
+  "/assets/journey/lamprostech.png": imgLampros,
+  "/assets/journey/svnit.png": imgSvnit,
+  "/assets/journey/vl2g.png": imgVl2g,
+  "/assets/journey/wictronix.png": imgWictronix,
 };
 
 function yearFrom(period: string): number {
@@ -18,11 +24,19 @@ function yearFrom(period: string): number {
   return match ? parseInt(match[1], 10) : 0;
 }
 
+function organizationWebsiteUrl(item: JourneyItem): string | undefined {
+  if (item.orgUrl?.trim()) return item.orgUrl.trim();
+  const fromLabel = item.links.find((l) => /^website$/i.test(l.label.trim()));
+  if (fromLabel) return fromLabel.url;
+  return item.links[0]?.url;
+}
+
 type JourneyTimelineProps = {
   journey: JourneyItem[];
+  projects: ProjectItem[];
 };
 
-export function JourneyTimeline({ journey }: JourneyTimelineProps) {
+export function JourneyTimeline({ journey, projects }: JourneyTimelineProps) {
   const currentYear = new Date().getFullYear();
   const timelineYears = useMemo(() => {
     const uniqueYears = Array.from(new Set(journey.map((item) => yearFrom(item.period)).filter(Boolean))).sort(
@@ -110,6 +124,12 @@ export function JourneyTimeline({ journey }: JourneyTimelineProps) {
           const img = item.image ? IMAGE_MAP[item.image] : undefined;
           const reverse = idx % 2 !== 0;
           const itemYear = yearFrom(item.period);
+          const websiteUrl = organizationWebsiteUrl(item);
+          const extraLinks = item.links.filter((l) => {
+            if (websiteUrl && l.url === websiteUrl) return false;
+            if (websiteUrl && /^website$/i.test(l.label.trim())) return false;
+            return true;
+          });
 
           return (
             <article
@@ -126,7 +146,7 @@ export function JourneyTimeline({ journey }: JourneyTimelineProps) {
                       alt={item.organization}
                       src={img}
                       fill
-                      className="object-cover brightness-75 grayscale transition-all duration-700 group-hover:brightness-100 group-hover:grayscale-0"
+                      className="image-rgb-hover object-cover"
                       sizes="(max-width: 1024px) 100vw, 40vw"
                     />
                   </div>
@@ -150,9 +170,9 @@ export function JourneyTimeline({ journey }: JourneyTimelineProps) {
                   )}
                 </div>
                 <h3 className="font-headline mb-2 text-4xl">
-                  {item.orgUrl ? (
+                  {websiteUrl ? (
                     <Link
-                      href={item.orgUrl}
+                      href={websiteUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="transition-colors duration-300 hover:text-primary"
@@ -165,16 +185,19 @@ export function JourneyTimeline({ journey }: JourneyTimelineProps) {
                 </h3>
                 <p className="font-label mb-6 text-xs text-on-surface-variant/60">{item.period}</p>
                 {item.highlights.length > 0 && (
-                  <ul className="font-body mb-6 max-w-xl list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-on-surface-variant">
+                  <ul className="font-body mb-6 max-w-xl list-disc space-y-3 pl-5 text-sm leading-relaxed text-on-surface-variant">
                     {item.highlights.map((h) => (
-                      <li key={h}>{h}</li>
+                      <li key={h} className="list-item">
+                        <MarkdownContent content={h} />
+                      </li>
                     ))}
                   </ul>
                 )}
                 {item.notes && (
-                  <p className="font-body mb-6 max-w-xl text-sm italic leading-relaxed text-on-surface-variant/60">
-                    {item.notes}
-                  </p>
+                  <MarkdownContent
+                    content={item.notes}
+                    className="font-body mb-6 max-w-xl text-sm italic leading-relaxed text-on-surface-variant/60"
+                  />
                 )}
                 <div className="flex flex-wrap gap-4">
                   {item.stack.map((tag) => (
@@ -186,11 +209,29 @@ export function JourneyTimeline({ journey }: JourneyTimelineProps) {
                     </span>
                   ))}
                 </div>
-                {item.links.length > 0 && (
+                {item.projects.length > 0 && (
+                  <div className="mt-6">
+                    <span className="mb-2 block font-label text-[10px] uppercase tracking-widest text-outline">
+                      Projects
+                    </span>
+                    <div className="flex flex-wrap gap-2">
+                      {item.projects.map((name) => (
+                        <Link
+                          key={name}
+                          href={journeyProjectHref(name, projects)}
+                          className="border border-outline-variant/25 bg-surface-container-low px-3 py-1.5 font-label text-[10px] uppercase tracking-wider text-on-surface-variant transition-colors hover:border-primary/40 hover:text-on-background"
+                        >
+                          {name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {extraLinks.length > 0 && (
                   <div className="mt-4 flex flex-wrap gap-4">
-                    {item.links.map((link) => (
+                    {extraLinks.map((link) => (
                       <Link
-                        key={link.url}
+                        key={`${link.label}-${link.url}`}
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
