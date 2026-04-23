@@ -20,11 +20,20 @@ function scrambleWithLocks(target: string, lockedCount: number): string {
 
 type Phase = "scrambling" | "typing" | "done";
 
-export function TypewriterName() {
+type TypewriterNameProps = {
+  className?: string;
+  minWidthClassName?: string;
+};
+
+export function TypewriterName({
+  className = "font-headline text-2xl font-light tracking-tight text-on-background italic",
+  minWidthClassName = "min-w-[11ch]",
+}: TypewriterNameProps) {
   const [displayedName, setDisplayedName] = useState(ALIAS);
   const [currentTarget, setCurrentTarget] = useState(ALIAS);
   const [lockedCount, setLockedCount] = useState(ALIAS.length);
   const [phase, setPhase] = useState<Phase>("done");
+  const textClassName = `inline-block ${minWidthClassName} ${className}`.trim();
 
   useEffect(() => {
     const target = currentTarget;
@@ -81,7 +90,7 @@ export function TypewriterName() {
 
   if (showRealName) {
     return (
-      <span className="inline-block min-w-[11ch] font-headline text-2xl font-light tracking-tight text-on-background italic">
+      <span className={textClassName}>
         {REAL_NAME}
       </span>
     );
@@ -89,14 +98,14 @@ export function TypewriterName() {
 
   if (showAlias) {
     return (
-      <span className="inline-block min-w-[11ch] font-headline text-2xl font-light tracking-tight text-on-background italic">
+      <span className={textClassName}>
         {ALIAS}
       </span>
     );
   }
 
   return (
-    <span className="inline-block min-w-[11ch] font-headline text-2xl font-light tracking-tight text-on-background italic">
+    <span className={textClassName}>
       {displayedName}
     </span>
   );

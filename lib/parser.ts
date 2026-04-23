@@ -41,15 +41,8 @@ export type TimelineItem = {
   text: string;
 };
 
-export type HackathonItem = {
-  title: string;
-  date: string;
-  description: string;
-  image?: string;
-  links: { label: string; url: string }[];
-};
-
-export type ConferenceItem = {
+export type ExperienceEvent = {
+  kind: "hackathon" | "conference";
   title: string;
   date: string;
   description: string;
@@ -89,8 +82,7 @@ export type SiteData = {
   stats: { value: string; label: string }[];
   journey: JourneyItem[];
   projects: ProjectItem[];
-  hackathons: HackathonItem[];
-  conferences: ConferenceItem[];
+  experienceEvents: ExperienceEvent[];
   talks: TalkItem[];
   socialLinks: SocialLinks;
 };
@@ -333,33 +325,28 @@ function parseProjects(body: string): ProjectItem[] {
   });
 }
 
-function parseHackathons(body: string): HackathonItem[] {
+function parseExperienceEvents(body: string): ExperienceEvent[] {
   return splitH3(body).map(({ heading, body: raw }) => {
     const lines = raw.split("\n");
     const paren = heading.match(/^(.+?)\s*\(([^)]+)\)\s*$/);
     const title = paren ? paren[1].trim() : heading.trim();
-    const date = paren ? paren[2].trim() : "";
+    const date = meta(lines, "Date") ?? (paren ? paren[2].trim() : "");
+    const image = meta(lines, "Image");
     const linksRaw = meta(lines, "Links");
+    const links = linksRaw ? mdLinks(linksRaw) : [];
+    const typeRaw = (meta(lines, "Type") ?? "").trim().toLowerCase();
+    const kind: ExperienceEvent["kind"] =
+      typeRaw === "conference" || image?.includes("/assets/conferences/")
+        ? "conference"
+        : "hackathon";
+
     return {
+      kind,
       title,
       date,
-      description: meta(lines, "Description") ?? "",
-      image: meta(lines, "Image"),
-      links: linksRaw ? mdLinks(linksRaw) : [],
-    };
-  });
-}
-
-function parseConferences(body: string): ConferenceItem[] {
-  return splitH3(body).map(({ heading, body: raw }) => {
-    const lines = raw.split("\n");
-    const linksRaw = meta(lines, "Links");
-    return {
-      title: heading.trim(),
-      date: meta(lines, "Date") ?? "",
-      description: meta(lines, "Description") ?? "",
-      image: meta(lines, "Image"),
-      links: linksRaw ? mdLinks(linksRaw) : [],
+      description: meta(lines, "Description") ?? freeText(lines) ?? "",
+      image,
+      links,
     };
   });
 }
@@ -419,8 +406,9 @@ function parse(): SiteData {
   const summaryMatch = raw.match(/^> (.+)$/m);
   const sections = splitH2(raw);
   const about = parseAbout(sections.get("About") ?? "");
-  const hackathonBody = sections.get("Hackathons") ?? "";
-  const conferenceBody = sections.get("Conferences") ?? "";
+  const experienceEvents = parseExperienceEvents(
+    sections.get("Conferences & Hackathons") ?? "",
+  );
   const talksBody =
     sections.get("Talks, Press & Community") ??
     sections.get("Talks & Contributions") ??
@@ -433,8 +421,7 @@ function parse(): SiteData {
     ...about,
     journey: parseJourney(sections.get("Journey") ?? ""),
     projects: parseProjects(sections.get("Projects") ?? ""),
-    hackathons: parseHackathons(hackathonBody),
-    conferences: parseConferences(conferenceBody),
+    experienceEvents,
     talks: parseTalks(talksBody),
     socialLinks: parseSocialLinks(sections.get("Social Links") ?? ""),
   };

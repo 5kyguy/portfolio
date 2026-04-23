@@ -29,15 +29,6 @@ Backend and web3 engineer with deep roots in Go, Solidity, and the distributed s
 - **Highlights**: 1x Best Performer of the Quarter (Q2 2024), 10x Workplace Wizard (regular attendance and punctuality, with no leaves taken, monthly).
 - **Projects**: TriggerX | FlowForge | LamprosDAO
 
-### SVNIT Surat
-
-- **Links**: [Website](https://www.svnit.ac.in/)
-- **Period**: May 2024
-- **Role**: BTech Graduation
-- **Location**: Surat, India
-- **Image**: /assets/journey/svnit.png
-- **Highlights**: Graduated with a BTech in Computer Science.
-
 ### VL2G Lab, IIT Jodhpur
 
 - **Links**: [Website](https://vl2g.github.io/)
@@ -51,6 +42,15 @@ Backend and web3 engineer with deep roots in Go, Solidity, and the distributed s
 - **Highlights**: Focused on dataset quality, generation pipeline design, and reproducibility-oriented workflow.
 - **Highlights**: Collaborated with Vishvesh Trivedi and Suyash Maniyar during development and experimentation.
 - **Projects**: pptGEN
+
+### SVNIT Surat
+
+- **Links**: [Website](https://www.svnit.ac.in/)
+- **Period**: May 2024
+- **Role**: BTech Graduation
+- **Location**: Surat, India
+- **Image**: /assets/journey/svnit.png
+- **Highlights**: Graduated with a BTech in Computer Science.
 
 ### WictroniX
 
@@ -132,86 +132,130 @@ Backend and web3 engineer with deep roots in Go, Solidity, and the distributed s
 - **Stack**: HTML, CSS, React, MongoDB, Node.js, Express.js
 - **Description**: Built the initial website for DQCare, a startup in the healthcare domain.
 
-## Hackathons
+## Conferences & Hackathons
 
-### EigenLayer MicroHacks (Jun 2024)
+<!-- Newest first (descending chronology) -->
 
-- **Description**: We built the initial version of TriggerX, a MVP keeper network AVS. Placed 5th with it. This was a minimal project with only contracts and some backend services.
-- **Image**: /assets/hackathons/eigenlayermicrohacks2024.png
-- **Links**: [Project](https://github.com/trigg3rX/keeper) | [Winner Announcement](https://x.com/buildoneigen/status/1804495302746841160)
+### ChainLink ConveRgencE
 
-### SuperHack 2024 (Aug 2024)
-
-- **Description**: Developed WorldWave, an app for using World ID as a login system for web3 applications.
-- **Image**: /assets/hackathons/superhack2024.png
-- **Links**: [Project](https://github.com/World-Wave)
-
-### ETHOnline 2024 (Sep 2024)
-
-- **Description**: Created StakeEasy, an app for staking using SSV Network's Distributed Validator Technology on the Ethereum network.
-- **Image**: /assets/hackathons/ethonline2024.png
-- **Links**: [Project](https://github.com/StakeEasy)
-
-### Tron Hackatron 7 (Oct 2024)
-
-- **Description**: Revisited the keeper network MVP AVS. Added more features and services to it, along with UI and docs for users. Rebranded it as TriggerX, and placed 2nd in Community Track with it.
-- **Image**: /assets/hackathons/hackatron72024.png
-- **Links**: [Project](https://github.com/trigg3rx) | [Winner Announcement](https://forum.trondao.org/t/hackatron-s7-qualifiers-and-winners-list/29669)
-
-### Arbitrum OpenHouse Bengaluru Buildathon (Aug 2025)
-
-- **Description**: Submitted TriggerX as a project. Went live on Arbitrum One Mainnet during this buildathon. Won the 3rd place.
-- **Image**: /assets/hackathons/openhouse2025.png
-- **Links**: [Project](https://github.com/trigg3rx) | [Winner Announcement](https://x.com/arbitrum_india/status/1965799841038254341)
-
-### ETHGlobal New Delhi (Sep 2025)
-
-- **Description**: My solo project and hackathon debut. Built a browser extension to help users protect their privacy in emails, and they could sell the information to agents, facilitated by x402.
-- **Image**: /assets/hackathons/ethglobalnewdelhi2025.png
-- **Links**: [Project](https://github.com/5kyguy/dataguard)
-
-### ETHGlobal HackMoney 2026 (Jan 2026)
-
-- **Description**: Developed FlowForge from scratch, as a one-stop solution for users to manage their workflows and integrations. The UI consists of a simple drag-and-drop interface.
-- **Image**: /assets/hackathons/hackmoney2026.png
-- **Links**: [Submission](https://ethglobal.com/showcase/flowforge-ntx18)
-
-### Arbitrum OpenHouse NYC Buildathon (Feb 2026)
-
-- **Description**: Added the Telegram bot to FlowForge. The canvas UI now sits behind the bot, so users can manage their workflows and integrations entirely through chat.
-- **Image**: /assets/hackathons/openhouse2025.png
-- **Links**: [Submission](https://arbitrum-nyc.hackquest.io/projects/Arbitrum-Open-House-NYC-Online-Buildathon-FlowForge)
-
-### ChainLink ConveRgencE (Mar 2026)
-
-- **Description**: Converted backend workflow executions to ChainLink CRE, making it more reliable and scalable.
+- **Type**: Hackathon
+- **Date**: Mar 2026
 - **Image**: /assets/hackathons/convergence2026.png
 - **Links**: [Project](https://github.com/try-flowforge)
-
-## Conferences
-
-### Devfolio Interfaces
-
-- **Date**: 24 Sep 2025
-- **Image**: /assets/conferences/interfaces2025.png
-- **Links**: [Website](https://interfaces.blocsoc.in/)
-- **Description**: Interfaces sat exactly where I like to be — between serious research and shipping code. At IIT Delhi with Devfolio and BlocSoc, it was less hype cycle and more honest dialogue about how student communities and academia plug into Ethereum, and what on-chain tooling looks like for India beyond the usual headlines. I left energized by panels that treated Ethereum as infrastructure you can reason about, not just an asset class; it set a thoughtful tone for the rest of ETHGlobal week in Delhi.
-
-### ETHGlobal Pragma New Delhi
-
-- **Date**: 25 Sep 2025
-- **Image**: /assets/conferences/pragmanewdelhi2025.png
-- **Links**: [Website](https://ethglobal.com/events/pragma-newdelhi)
-- **Description**: Pragma was a single-track, no-overlap day aimed at people actually building — wallets, L2s, DeFi, stablecoins, interoperability — which matched how I think about my own work (infra, contracts, reliability). I appreciated the format: one thread of talks so you could stay present, and conversations in the room felt founder- and builder-heavy rather than generic conference small talk. I skipped some talks; connecting with the builders and founders was more enjoyable.
+- **Description**: Converted backend workflow executions to ChainLink CRE, making it more reliable and scalable.
 
 ### ETHMumbai 2026
 
+- **Type**: Conference
 - **Date**: 12 Mar 2026
 - **Image**: /assets/conferences/ethmumbai2026.png
-- **Links**: [Website](https://www.ethmumbai.in/conference)
+- **Links**: [Event](https://www.ethmumbai.in/conference)
 - **Description**: I came for the conference side of ETHMumbai, not the hackathon — I wanted to meet people and read the room on how Mumbai’s Ethereum scene is shaping up. DeFi, privacy, and AI on the schedule still lined up with what I care about as a backend and chain developer, but the highlight was walking the floor, swapping notes with builders, and feeling the energy without committing to a build sprint. I left with a clearer picture of who is shipping what locally and stronger ties beyond Discord and GitHub.
 
+### Arbitrum OpenHouse NYC Buildathon
+
+- **Type**: Hackathon
+- **Date**: Feb 2026
+- **Image**: /assets/hackathons/openhouse2025.png
+- **Links**: [Submission](https://arbitrum-nyc.hackquest.io/projects/Arbitrum-Open-House-NYC-Online-Buildathon-FlowForge)
+- **Description**: Added the Telegram bot to FlowForge. The canvas UI now sits behind the bot, so users can manage their workflows and integrations entirely through chat.
+
+### ETHGlobal HackMoney 2026
+
+- **Type**: Hackathon
+- **Date**: Jan 2026
+- **Image**: /assets/hackathons/hackmoney2026.png
+- **Links**: [Submission](https://ethglobal.com/showcase/flowforge-ntx18)
+- **Description**: Developed FlowForge from scratch, as a one-stop solution for users to manage their workflows and integrations. The UI consists of a simple drag-and-drop interface.
+
+### ETHGlobal Pragma New Delhi
+
+- **Type**: Conference
+- **Date**: 25 Sep 2025
+- **Image**: /assets/conferences/pragmanewdelhi2025.png
+- **Links**: [Event](https://ethglobal.com/events/pragma-newdelhi)
+- **Description**: Pragma was a single-track, no-overlap day aimed at people actually building — wallets, L2s, DeFi, stablecoins, interoperability — which matched how I think about my own work (infra, contracts, reliability). I appreciated the format: one thread of talks so you could stay present, and conversations in the room felt founder- and builder-heavy rather than generic conference small talk. I skipped some talks; connecting with the builders and founders was more enjoyable.
+
+### Devfolio Interfaces
+
+- **Type**: Conference
+- **Date**: 24 Sep 2025
+- **Image**: /assets/conferences/interfaces2025.png
+- **Links**: [Event](https://interfaces.blocsoc.in/)
+- **Description**: Interfaces sat exactly where I like to be — between serious research and shipping code. At IIT Delhi with Devfolio and BlocSoc, it was less hype cycle and more honest dialogue about how student communities and academia plug into Ethereum, and what on-chain tooling looks like for India beyond the usual headlines. I left energized by panels that treated Ethereum as infrastructure you can reason about, not just an asset class; it set a thoughtful tone for the rest of ETHGlobal week in Delhi.
+
+### ETHGlobal New Delhi
+
+- **Type**: Hackathon
+- **Date**: Sep 2025
+- **Image**: /assets/hackathons/ethglobalnewdelhi2025.png
+- **Links**: [Project](https://github.com/5kyguy/dataguard)
+- **Description**: My solo project and hackathon debut. Built a browser extension to help users protect their privacy in emails, and they could sell the information to agents, facilitated by x402.
+
+### Arbitrum OpenHouse Bengaluru Buildathon
+
+- **Type**: Hackathon
+- **Date**: Aug 2025
+- **Image**: /assets/hackathons/openhouse2025.png
+- **Links**: [Project](https://github.com/trigg3rx) | [Winner Announcement](https://x.com/arbitrum_india/status/1965799841038254341)
+- **Description**: Submitted TriggerX as a project. Went live on Arbitrum One Mainnet during this buildathon. Won the 3rd place.
+
+### Tron Hackatron 7
+
+- **Type**: Hackathon
+- **Date**: Oct 2024
+- **Image**: /assets/hackathons/hackatron72024.png
+- **Links**: [Project](https://github.com/trigg3rx) | [Winner Announcement](https://forum.trondao.org/t/hackatron-s7-qualifiers-and-winners-list/29669)
+- **Description**: Revisited the keeper network MVP AVS. Added more features and services to it, along with UI and docs for users. Rebranded it as TriggerX, and placed 2nd in Community Track with it.
+
+### ETHOnline 2024
+
+- **Type**: Hackathon
+- **Date**: Sep 2024
+- **Image**: /assets/hackathons/ethonline2024.png
+- **Links**: [Project](https://github.com/StakeEasy)
+- **Description**: Created StakeEasy, an app for staking using SSV Network's Distributed Validator Technology on the Ethereum network.
+
+### SuperHack 2024
+
+- **Type**: Hackathon
+- **Date**: Aug 2024
+- **Image**: /assets/hackathons/superhack2024.png
+- **Links**: [Project](https://github.com/World-Wave)
+- **Description**: Developed WorldWave, an app for using World ID as a login system for web3 applications.
+
+### EigenLayer MicroHacks
+
+- **Type**: Hackathon
+- **Date**: Jun 2024
+- **Image**: /assets/hackathons/eigenlayermicrohacks2024.png
+- **Links**: [Project](https://github.com/trigg3rX/keeper) | [Winner Announcement](https://x.com/buildoneigen/status/1804495302746841160)
+- **Description**: We built the initial version of TriggerX, a MVP keeper network AVS. Placed 5th with it. This was a minimal project with only contracts and some backend services.
+
 ## Talks, Press & Community
+
+<!-- Newest first (descending chronology) -->
+
+### LamprosDao x Arbitrum Builder Labs
+
+- **Date**: Mar 2026
+- **Description**: Speaker at several colleges across Gujarat and Maharashtra as part of the Builder Labs and Builder Pods program.
+- **Image**: /assets/talks/builderlabs.png
+- **Links**: [Program Announcement](https://x.com/lamprosdao/status/2026605784549962222) | [SVNIT Surat](https://x.com/lamprosdao/status/2038557732136264033) | [PICT Pune](https://x.com/lamprosdao/status/2043917738608079345) | [MIT Pune](https://x.com/lamprosdao/status/2044302994607616067) | [PDEU Gandhinagar](https://x.com/lamprosdao/status/)
+
+### LamprosDao X Spaces: Ethereum Fusaka Upgrade
+
+- **Date**: Dec 2025
+- **Description**: Covering the Ethereum Fusaka Upgrade over 2 episodes on X Spaces as a technical speaker.
+- **Image**: /assets/talks/fusakaxspaces.png
+- **Links**: [Episode 1 X Broadcast](https://x.com/lamprosdao/status/1997263244311048582) | [Episode 1 YouTube](https://www.youtube.com/watch?v=GtYPvesNrC8) | [Episode 2 X Broadcast](https://x.com/lamprosdao/status/2000521294287348077) | [Episode 2 YouTube](https://www.youtube.com/watch?v=ZR4hqgw-hz0)
+
+### Arbitrum Open House Bengaluru (Aug 2025)
+
+- **Date**: Aug 2025
+- **Description**: Attended Arbitrum Open House Bengaluru, a private Hacker House event. Pitched TriggerX as a native Arbitrum Orbit automation platform — any team deploying an Orbit chain can plug TriggerX in for their automation needs — took feedback from the community, and shared the journey of TriggerX so far.
+- **Image**: /assets/talks/openhouse.png
+- **Links**: [Announcement](https://x.com/lamprosdao/status/1968932012087197747)
 
 ### Featured on Times Square, NYC
 
@@ -226,27 +270,6 @@ Backend and web3 engineer with deep roots in Go, Solidity, and the distributed s
 - **Description**: Speaker at hands-on seminars in Gujarat colleges introducing Arbitrum.
 - **Image**: /assets/talks/lamprosdaoseminars.png
 - **Links**: [B. H. Gardi College](https://www.linkedin.com/posts/lamprosdao_web3-web3-web3-activity-7267125574970613760-JxOa) | [Ganpat University](https://www.linkedin.com/posts/lamprosdao_web3-web3-web3-activity-7272898126091350016-Yfe6) | [SVNIT Surat](https://www.linkedin.com/posts/lamprosdao_web3-web3-web3-activity-7275376908190519296-havl)
-
-### Arbitrum Open House Bengaluru (Aug 2025)
-
-- **Date**: Aug 2025
-- **Description**: Attended Arbitrum Open House Bengaluru, a private Hacker House event. Pitched TriggerX as a native Arbitrum Orbit automation platform — any team deploying an Orbit chain can plug TriggerX in for their automation needs — took feedback from the community, and shared the journey of TriggerX so far.
-- **Image**: /assets/talks/openhouse.png
-- **Links**: [Announcement](https://x.com/lamprosdao/status/1968932012087197747)
-
-### LamprosDao X Spaces: Ethereum Fusaka Upgrade
-
-- **Date**: Dec 2025
-- **Description**: Covering the Ethereum Fusaka Upgrade over 2 episodes on X Spaces as a technical speaker.
-- **Image**: /assets/talks/fusakaxspaces.png
-- **Links**: [Episode 1 X Broadcast](https://x.com/lamprosdao/status/1997263244311048582) | [Episode 1 YouTube](https://www.youtube.com/watch?v=GtYPvesNrC8) | [Episode 2 X Broadcast](https://x.com/lamprosdao/status/2000521294287348077) | [Episode 2 YouTube](https://www.youtube.com/watch?v=ZR4hqgw-hz0)
-
-### LamprosDao x Arbitrum Builder Labs
-
-- **Date**: Mar 2026
-- **Description**: Speaker at several colleges across Gujarat and Maharashtra as part of the Builder Labs and Builder Pods program.
-- **Image**: /assets/talks/builderlabs.png
-- **Links**: [Program Announcement](https://x.com/lamprosdao/status/2026605784549962222) | [SVNIT Surat](https://x.com/lamprosdao/status/2038557732136264033) | [PICT Pune](https://x.com/lamprosdao/status/2043917738608079345) | [MIT Pune](https://x.com/lamprosdao/status/2044302994607616067) | [PDEU Gandhinagar](https://x.com/lamprosdao/status/)
 
 ## Social Links
 

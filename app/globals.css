@@ -122,6 +122,11 @@
   --color-on-error-container: #e5e5e5;
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 7rem;
+}
+
 body {
   @apply bg-surface font-body text-on-surface antialiased;
   @apply selection:bg-secondary-container selection:text-on-secondary-container;
