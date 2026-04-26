@@ -1,12 +1,14 @@
 {
   "name": "portfolio",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "worker:dev": "wrangler dev --config workers/contact/wrangler.jsonc",
+    "worker:deploy": "wrangler deploy --config workers/contact/wrangler.jsonc"
   },
   "dependencies": {
     "next": "^16.2.2",
@@ -24,6 +26,7 @@
     "eslint": "^9.39.4",
     "eslint-config-next": "^16.2.2",
     "tailwindcss": "^4.2.2",
-    "typescript": "^6.0.2"
+    "typescript": "^6.0.2",
+    "wrangler": "^4.16.0"
   }
 }

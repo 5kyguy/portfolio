@@ -1,0 +1,16 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "portfolio-contact",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-04-01",
+  "send_email": [
+    {
+      "name": "NOTIFY",
+      "destination_address": "0x5kyguy@gmail.com"
+    }
+  ],
+  "vars": {
+    "CONTACT_FROM": "you@your-verified-domain.example",
+    "ALLOWED_ORIGINS": "http://localhost:3000"
+  }
+}

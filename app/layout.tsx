@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Manrope, Newsreader } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import profileIcon from "@/assets/profile.png";
 import "./globals.css";
 
 const newsreader = Newsreader({
@@ -22,6 +23,10 @@ export const metadata: Metadata = {
     template: "%s | Aakash Yadav",
   },
   description: "Aakash Yadav's (SkyGuy) portfolio",
+  icons: {
+    icon: [{ url: profileIcon.src, type: "image/png" }],
+    apple: [{ url: profileIcon.src }],
+  },
 };
 
 export default function RootLayout({

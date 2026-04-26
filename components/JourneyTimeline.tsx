@@ -30,10 +30,9 @@ type JourneyTimelineProps = {
 
 export function JourneyTimeline({ journey, projects }: JourneyTimelineProps) {
   return (
-    <div className="relative space-y-32">
-      {journey.map((item, idx) => {
+    <div className="space-y-8">
+      {journey.map((item) => {
         const img = item.image ? IMAGE_MAP[item.image] : undefined;
-        const reverse = idx % 2 !== 0;
         const websiteUrl = organizationWebsiteUrl(item);
         const extraLinks = item.links.filter((l) => {
           if (websiteUrl && l.url === websiteUrl) return false;
@@ -44,127 +43,120 @@ export function JourneyTimeline({ journey, projects }: JourneyTimelineProps) {
         return (
           <article
             key={`${item.period}-${item.organization}`}
-            className="group grid grid-cols-1 items-center gap-8 lg:grid-cols-10"
+            className="image-rgb-hover-group grid gap-6 border border-outline-variant/15 bg-surface-container-low p-6 md:grid-cols-[minmax(8rem,18%)_minmax(0,1fr)] md:gap-8 md:p-8"
           >
-            <div
-              className={`${img ? "overflow-hidden" : ""} ${reverse ? "order-1 lg:order-2 lg:col-span-4" : "lg:col-span-4"}`}
-            >
+            <div className="min-w-0">
               {img ? (
-                <div className="relative aspect-[4/3] w-full">
+                <div className="image-rgb-box relative aspect-[16/10] overflow-hidden bg-surface-container">
                   <Image
                     alt={item.organization}
                     src={img}
                     fill
-                    className="image-rgb-hover object-cover"
-                    sizes="(max-width: 1024px) 100vw, 40vw"
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 18vw, 216px"
                   />
                 </div>
               ) : (
-                <div className="flex aspect-[4/3] w-full items-center justify-center bg-surface-container p-12">
-                  <p className="font-headline text-center text-xl italic leading-relaxed text-on-surface-variant/40">
+                <div className="flex aspect-[16/10] items-center justify-center bg-surface-container p-6">
+                  <span className="font-label text-[10px] uppercase tracking-[0.24em] text-outline">
                     {item.period}
-                  </p>
+                  </span>
                 </div>
               )}
             </div>
-            <div
-              className={`flex w-full flex-col justify-center lg:max-w-xl ${
-                reverse ? "order-2 lg:order-1 lg:col-span-6 lg:ml-auto lg:text-right" : "lg:col-span-6 lg:mr-auto lg:text-left"
-              }`}
-            >
-              <div
-                className={`mb-2 flex flex-wrap items-baseline gap-x-4 gap-y-1 ${
-                  reverse ? "lg:justify-end" : ""
-                }`}
-              >
-                <span className="font-label text-xs uppercase tracking-widest text-primary">{item.role}</span>
-                {item.location && (
-                  <span className="font-label text-[10px] uppercase tracking-wider text-on-surface-variant/50">
-                    {item.location}
-                  </span>
-                )}
+
+            <div>
+              <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                <div>
+                  <p className="font-label text-[10px] uppercase tracking-[0.24em] text-primary">
+                    {item.role}
+                  </p>
+                  <h3 className="mt-2 font-headline text-3xl font-light tracking-tight">
+                    {websiteUrl ? (
+                      <Link
+                        href={websiteUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="transition-colors hover:text-primary"
+                      >
+                        {item.organization}
+                      </Link>
+                    ) : (
+                      item.organization
+                    )}
+                  </h3>
+                </div>
+                <div className="text-left md:text-right">
+                  <p className="font-label text-[10px] uppercase tracking-[0.24em] text-outline">
+                    {item.period}
+                  </p>
+                  {item.location ? (
+                    <p className="mt-2 text-sm text-on-surface-variant">
+                      {item.location}
+                    </p>
+                  ) : null}
+                </div>
               </div>
-              <h3 className={`font-headline mb-2 text-4xl ${reverse ? "lg:text-right" : ""}`}>
-                {websiteUrl ? (
-                  <Link
-                    href={websiteUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="transition-colors duration-300 hover:text-primary"
-                  >
-                    {item.organization}
-                  </Link>
-                ) : (
-                  item.organization
-                )}
-              </h3>
-              <p className={`font-label mb-6 text-xs text-on-surface-variant/60 ${reverse ? "lg:text-right" : ""}`}>
-                {item.period}
-              </p>
-              {item.highlights.length > 0 && (
-                <div
-                  className={`font-body mb-6 space-y-3 text-sm leading-relaxed text-on-surface-variant ${
-                    reverse ? "lg:text-right" : ""
-                  }`}
-                >
-                  {item.highlights.map((h) => (
-                    <MarkdownContent key={h} content={h} />
+
+              {item.highlights.length > 0 ? (
+                <div className="mt-5 space-y-3 text-sm leading-relaxed text-on-surface-variant">
+                  {item.highlights.slice(0, 3).map((highlight) => (
+                    <MarkdownContent key={highlight} content={highlight} />
                   ))}
                 </div>
-              )}
-              {item.notes && (
-                <MarkdownContent
-                  content={item.notes}
-                  className={`font-body mb-6 text-sm italic leading-relaxed text-on-surface-variant/60 ${reverse ? "lg:text-right" : ""}`}
-                />
-              )}
-              <div className={`flex flex-wrap gap-4 ${reverse ? "lg:justify-end" : ""}`}>
-                {item.stack.map((tag) => (
-                  <span
-                    key={tag}
-                    className="bg-surface-container-high px-4 py-1 font-label text-[10px] uppercase tracking-wider"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              {item.projects.length > 0 && (
-                <div className={`mt-6 ${reverse ? "lg:text-right" : ""}`}>
-                  <span
-                    className={`mb-2 block font-label text-[10px] uppercase tracking-widest text-outline ${
-                      reverse ? "lg:inline-block" : ""
-                    }`}
-                  >
-                    Projects
-                  </span>
-                  <div className={`flex flex-wrap gap-2 ${reverse ? "lg:justify-end" : ""}`}>
-                    {item.projects.map((name) => (
+              ) : null}
+
+              {item.stack.length > 0 ? (
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {item.stack.map((tag) => (
+                    <span
+                      key={tag}
+                      className="border border-outline-variant/20 px-3 py-1 font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              ) : null}
+
+              <div className="mt-5 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                {item.projects.length > 0 ? (
+                  <div>
+                    <p className="mb-2 font-label text-[10px] uppercase tracking-[0.2em] text-outline">
+                      Relevant work
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {item.projects.map((name) => (
+                        <Link
+                          key={name}
+                          href={journeyProjectHref(name, projects)}
+                          className="border border-outline-variant/25 bg-surface px-3 py-1.5 font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant transition-colors hover:border-primary/40 hover:text-on-background"
+                        >
+                          {name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <span />
+                )}
+
+                {extraLinks.length > 0 ? (
+                  <div className="flex flex-wrap gap-3">
+                    {extraLinks.map((link) => (
                       <Link
-                        key={name}
-                        href={journeyProjectHref(name, projects)}
-                        className="border border-outline-variant/25 bg-surface-container-low px-3 py-1.5 font-label text-[10px] uppercase tracking-wider text-on-surface-variant transition-colors hover:border-primary/40 hover:text-on-background"
+                        key={`${link.label}-${link.url}`}
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-label text-xs text-primary underline underline-offset-4 transition-colors hover:text-on-background"
                       >
-                        {name}
+                        {link.label}
                       </Link>
                     ))}
                   </div>
-                </div>
-              )}
-              {extraLinks.length > 0 && (
-                <div className={`mt-4 flex flex-wrap gap-4 ${reverse ? "lg:justify-end" : ""}`}>
-                  {extraLinks.map((link) => (
-                    <Link
-                      key={`${link.label}-${link.url}`}
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-label text-xs text-primary underline underline-offset-4 transition-colors duration-300 hover:text-on-background"
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                </div>
-              )}
+                ) : null}
+              </div>
             </div>
           </article>
         );

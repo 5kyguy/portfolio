@@ -211,13 +211,34 @@ button .material-symbols-outlined {
   letter-spacing: -0.02em;
 }
 
-/** Graphic surfaces: grayscale at rest; color + subtle RGB glow on .group:hover */
-.image-rgb-hover {
-  filter: grayscale(1) brightness(0.92);
+/**
+ * Grayscale is applied to a wrapper (`.image-rgb-box`), not the <img>, so
+ * `next/image` + fill layout cannot break filter stacking, and
+ * `article.image-rgb-hover-group:hover` correctly recolors the image.
+ * Same-element case: `image-rgb-hover-group image-rgb-box` (modal) uses
+ * `group:hover` on that node — descendant selector cannot match self.
+ * Touch: no filter so media does not get stuck in gray.
+ */
+.image-rgb-box {
   transition: filter 700ms ease, opacity 700ms ease;
 }
 
-.group:hover .image-rgb-hover {
-  filter: grayscale(0) brightness(1) drop-shadow(0 0 10px rgba(255, 60, 60, 0.22))
-    drop-shadow(0 0 18px rgba(60, 220, 120, 0.14)) drop-shadow(0 0 26px rgba(60, 140, 255, 0.12));
+@media (hover: none) {
+  .image-rgb-hover-group .image-rgb-box,
+  .image-rgb-hover-group.image-rgb-box {
+    filter: none;
+  }
+}
+
+/* `pointer: fine` is omitted: some Linux/Wacom stacks mis-report coarse pointer. */
+@media (hover: hover) {
+  .image-rgb-hover-group .image-rgb-box,
+  .image-rgb-hover-group.image-rgb-box {
+    filter: grayscale(1) brightness(0.92);
+  }
+
+  .image-rgb-hover-group:hover .image-rgb-box,
+  .image-rgb-hover-group.image-rgb-box:hover {
+    filter: none;
+  }
 }

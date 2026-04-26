@@ -15,6 +15,8 @@ type SocialLinksProps = {
   className?: string;
   linkClassName?: string;
   ariaLabel?: string;
+  /** `contactGrid`: single column (e.g. 6 links → 6 rows). Default: responsive 2 then 3 columns on xl. */
+  layout?: "default" | "contactGrid";
 };
 
 type LinkDef = {
@@ -22,6 +24,13 @@ type LinkDef = {
   label: string;
   Icon: IconType;
   hrefPrefix?: string;
+};
+
+type BuiltLink = {
+  href: string;
+  label: string;
+  username: string;
+  Icon: IconType;
 };
 
 const LINK_CONFIG: LinkDef[] = [
@@ -34,12 +43,30 @@ const LINK_CONFIG: LinkDef[] = [
 ];
 
 const defaultClassName =
-  "-mx-2 flex flex-nowrap items-center justify-center gap-2 overflow-x-auto px-2 pb-1 [-ms-overflow-style:none] [scrollbar-width:none] md:mx-0 md:max-w-none md:flex-none md:flex-wrap md:justify-start md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden";
+  "grid gap-3 sm:grid-cols-2 xl:grid-cols-3";
 
 const defaultLinkClassName =
-  "flex size-9 shrink-0 items-center justify-center rounded-full border border-outline/25 bg-surface-container-low/60 text-on-background transition-all duration-300 hover:border-primary/50 hover:bg-surface-container-high hover:text-primary dark:bg-surface-container/60 dark:hover:bg-surface-container-high";
+  "group/social flex min-h-14 items-center gap-3 border border-outline-variant/20 bg-surface-container-low px-4 py-3 text-on-background transition-colors hover:border-primary/50 hover:bg-surface-container-high";
 
-function buildLinks(social: SocialLinksData) {
+/** Taller cells in contact column; `flex-1` splits row height evenly with the form. */
+const contactGridLinkClassName =
+  "group/social flex min-h-0 flex-1 basis-0 items-center gap-3 border border-outline-variant/20 bg-surface-container-low px-4 py-2 text-on-background transition-colors hover:border-primary/50 hover:bg-surface-container-high";
+
+function usernameForLink(key: keyof SocialLinksData, raw: string) {
+  if (key === "email" || key === "discord") return raw;
+  if (raw.startsWith("@")) return raw;
+
+  try {
+    const url = new URL(raw);
+    const parts = url.pathname.split("/").filter(Boolean);
+    const handle = parts.at(-1);
+    return handle ? `@${handle.replace(/^@/, "")}` : raw;
+  } catch {
+    return raw;
+  }
+}
+
+function buildLinks(social: SocialLinksData): BuiltLink[] {
   return LINK_CONFIG.flatMap(({ key, label, Icon, hrefPrefix }) => {
     const rawValue = social[key];
     const raw = rawValue?.trim();
@@ -57,7 +84,7 @@ function buildLinks(social: SocialLinksData) {
       return [];
     }
 
-    return [{ href, label, Icon }];
+    return [{ href, label, username: usernameForLink(key, raw), Icon }];
   });
 }
 
@@ -66,20 +93,41 @@ export function SocialLinks({
   className = "",
   linkClassName = defaultLinkClassName,
   ariaLabel = "Contact and profiles",
+  layout = "default",
 }: SocialLinksProps) {
   const links = buildLinks(social);
+  const gridClassName =
+    layout === "contactGrid"
+      ? "flex min-h-0 flex-1 flex-col gap-3 lg:h-full"
+      : defaultClassName;
+  const resolvedLinkClassName =
+    layout === "contactGrid" ? contactGridLinkClassName : linkClassName;
 
   return (
-    <nav className={`${defaultClassName} ${className}`.trim()} aria-label={ariaLabel}>
-      {links.map(({ href, label, Icon }) => {
-        const inner = <Icon className="size-[1.125rem]" aria-hidden />;
+    <nav className={`${gridClassName} ${className}`.trim()} aria-label={ariaLabel}>
+      {links.map(({ href, label, username, Icon }) => {
+        const inner = (
+          <>
+            <span className="flex size-9 shrink-0 items-center justify-center border border-outline-variant/20 bg-background/70 text-on-background transition-colors group-hover/social:border-primary/40 group-hover/social:text-primary">
+              <Icon className="size-[1.125rem]" aria-hidden />
+            </span>
+            <span className="min-w-0">
+              <span className="block font-label text-[10px] uppercase tracking-[0.2em] text-outline">
+                {label}
+              </span>
+              <span className="mt-0.5 block truncate text-sm text-on-surface-variant transition-colors group-hover/social:text-on-background">
+                {username}
+              </span>
+            </span>
+          </>
+        );
         if (href.startsWith("mailto:")) {
           return (
             <a
               key={label}
               href={href}
-              className={linkClassName}
-              aria-label={label}
+              className={resolvedLinkClassName}
+              aria-label={`${label}: ${username}`}
             >
               {inner}
             </a>
@@ -92,8 +140,8 @@ export function SocialLinks({
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className={linkClassName}
-            aria-label={label}
+            className={resolvedLinkClassName}
+            aria-label={`${label}: ${username}`}
           >
             {inner}
           </Link>

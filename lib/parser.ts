@@ -25,6 +25,11 @@ export type ProjectItem = {
   name: string;
   description: string;
   period: string;
+  featured: boolean;
+  priority: number;
+  role: string;
+  outcome: string;
+  impactBullets: string[];
   highlights: string[];
   links: { label: string; url: string }[];
   github?: string;
@@ -46,6 +51,7 @@ export type ExperienceEvent = {
   title: string;
   date: string;
   description: string;
+  featured: boolean;
   image?: string;
   links: { label: string; url: string }[];
 };
@@ -71,13 +77,13 @@ export type SocialLinks = {
   reddit?: string;
 };
 
+/** Parsed from `content/skyguy.md` only (see portfolio rules). */
 export type SiteData = {
   name: string;
   profileImage?: string;
-  summary: string;
   tagline: string;
   headline: string;
-  headlines: string[];
+  subheadline: string;
   bio: string;
   stats: { value: string; label: string }[];
   journey: JourneyItem[];
@@ -85,6 +91,7 @@ export type SiteData = {
   experienceEvents: ExperienceEvent[];
   talks: TalkItem[];
   socialLinks: SocialLinks;
+  contactIntent: string;
 };
 
 // ---------------------------------------------------------------------------
@@ -189,16 +196,15 @@ function subsection(body: string, heading: string): string {
 
 function parseAbout(body: string) {
   const lines = body.split("\n");
-  const headlines = metaAll(lines, "Headline").map((h) => h.replace(/\.$/, "").trim());
   return {
     tagline: meta(lines, "Tagline") ?? "",
-    headline: headlines[0] ?? "",
-    headlines,
+    headline: meta(lines, "Headline") ?? "",
+    subheadline: meta(lines, "Subheadline") ?? "",
     stats: metaAll(lines, "Stat").map((s) => {
       const [value, ...rest] = s.split("|");
       return { value: value.trim(), label: rest.join("|").trim() };
     }),
-    bio: freeText(lines),
+    bio: meta(lines, "Bio") ?? freeText(lines),
   };
 }
 
@@ -286,6 +292,8 @@ function parseProjects(body: string): ProjectItem[] {
     const websiteFromLinks = parsedLinks.find((l) => /^website$/i.test(l.label.trim()));
     const primaryUrl =
       meta(lines, "URL")?.trim() || websiteFromLinks?.url || parsedLinks[0]?.url;
+    const priority = Number(meta(lines, "Priority") ?? "999");
+    const featuredRaw = (meta(lines, "Featured") ?? "").trim().toLowerCase();
 
     const timeline: TimelineItem[] = timelineBlock
       .split("\n")
@@ -312,6 +320,11 @@ function parseProjects(body: string): ProjectItem[] {
       name: heading,
       description: meta(lines, "Description") ?? freeText(lines) ?? "",
       period: meta(lines, "Period") ?? "",
+      featured: featuredRaw === "true" || featuredRaw === "yes",
+      priority: Number.isFinite(priority) ? priority : 999,
+      role: meta(lines, "Role") ?? "",
+      outcome: meta(lines, "Outcome") ?? "",
+      impactBullets: metaAll(lines, "Impact"),
       highlights: metaAll(lines, "Highlights"),
       links: parsedLinks,
       github: githubLinks[0],
@@ -339,12 +352,14 @@ function parseExperienceEvents(body: string): ExperienceEvent[] {
       typeRaw === "conference" || image?.includes("/assets/conferences/")
         ? "conference"
         : "hackathon";
+    const featuredRaw = (meta(lines, "Featured") ?? "").trim().toLowerCase();
 
     return {
       kind,
       title,
       date,
       description: meta(lines, "Description") ?? freeText(lines) ?? "",
+      featured: featuredRaw === "true" || featuredRaw === "yes",
       image,
       links,
     };
@@ -370,20 +385,41 @@ function parseSocialLinks(body: string): SocialLinks {
   for (const line of body.split("\n")) {
     const m = line.match(/^-\s*(.+?):\s*(.+)$/);
     if (!m) continue;
-    const key = m[1].trim().toLowerCase().replace(/\s+/g, "");
+    const key = m[1].trim().toLowerCase().replace(/\s+/g, "").replace(/\*/g, "");
     const val = m[2].trim();
+    if (key === "contactintent") continue;
     switch (key) {
-      case "github":       out.github = val; break;
+      case "github":
+        out.github = val;
+        break;
       case "x":
-      case "twitter":      out.x = val; break;
-      case "email":        out.email = val; break;
-      case "linkedin":     out.linkedin = val; break;
-      case "telegram":     out.telegram = val; break;
-      case "discord":      out.discord = val; break;
-      case "trondaoforum": out.tronDaoForum = val; break;
-      case "ens":          out.ens = val; break;
-      case "farcaster":    out.farcaster = val; break;
-      case "reddit":       out.reddit = val; break;
+      case "twitter":
+        out.x = val;
+        break;
+      case "email":
+        out.email = val;
+        break;
+      case "linkedin":
+        out.linkedin = val;
+        break;
+      case "telegram":
+        out.telegram = val;
+        break;
+      case "discord":
+        out.discord = val;
+        break;
+      case "trondaoforum":
+        out.tronDaoForum = val;
+        break;
+      case "ens":
+        out.ens = val;
+        break;
+      case "farcaster":
+        out.farcaster = val;
+        break;
+      case "reddit":
+        out.reddit = val;
+        break;
     }
   }
   return out;
@@ -403,7 +439,6 @@ function parse(): SiteData {
 
   const nameMatch = raw.match(/^# (.+)$/m);
   const profileImageMatch = raw.match(/^Profile picture:\s*(.+)$/m);
-  const summaryMatch = raw.match(/^> (.+)$/m);
   const sections = splitH2(raw);
   const about = parseAbout(sections.get("About") ?? "");
   const experienceEvents = parseExperienceEvents(
@@ -414,16 +449,20 @@ function parse(): SiteData {
     sections.get("Talks & Contributions") ??
     subsection(sections.get("Other Experiences") ?? "", "Talks & Contributions");
 
+  const socialBody = sections.get("Social Links") ?? "";
+  const socialLines = socialBody.split("\n");
+  const contactIntent = meta(socialLines, "Contact Intent") ?? "";
+
   return {
     name: nameMatch?.[1].trim() ?? "",
     profileImage: profileImageMatch?.[1].trim(),
-    summary: summaryMatch?.[1].trim() ?? "",
     ...about,
-    journey: parseJourney(sections.get("Journey") ?? ""),
+    journey: parseJourney(sections.get("Experience") ?? sections.get("Journey") ?? ""),
     projects: parseProjects(sections.get("Projects") ?? ""),
     experienceEvents,
     talks: parseTalks(talksBody),
-    socialLinks: parseSocialLinks(sections.get("Social Links") ?? ""),
+    socialLinks: parseSocialLinks(socialBody),
+    contactIntent,
   };
 }
 

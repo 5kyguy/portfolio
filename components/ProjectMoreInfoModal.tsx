@@ -58,13 +58,13 @@ export function ProjectMoreInfoModal({ screenshots, projectName, buttonLabel = "
                 return (
                   <div
                     key={i}
-                    className="group relative aspect-video overflow-hidden bg-surface-container-low"
+                    className="group image-rgb-hover-group image-rgb-box relative aspect-[16/10] overflow-hidden bg-surface-container-low"
                   >
                     <Image
                       alt={`${projectName} screenshot ${i + 1}`}
                       src={img}
                       fill
-                      className="image-rgb-hover object-cover"
+                      className="object-cover"
                     />
                   </div>
                 );
