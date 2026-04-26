@@ -10,7 +10,7 @@
     }
   ],
   "vars": {
-    "CONTACT_FROM": "you@your-verified-domain.example",
-    "ALLOWED_ORIGINS": "http://localhost:3000"
+    "CONTACT_FROM": "hello@skyguy.dev",
+    "ALLOWED_ORIGINS": "https://skyguy.dev"
   }
 }
